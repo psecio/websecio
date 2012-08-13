@@ -42,6 +42,8 @@ class Parse
 
     public function compile($data)
     {
+        echo '['.date('m.d.Y H:i:s').'] Compiling '.$data.'!'."\n";
+
         $data = $this->load($data);
 
         // see if we have a preCompile
