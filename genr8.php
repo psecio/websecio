@@ -31,6 +31,7 @@ class Build extends \Genr8\Parse
     }
     public function export($data, $filename)
     {
+        $this->makePostDir(APPPATH.'/'.$filename);
         file_put_contents(APPPATH.'/'.$filename,$data);
     }
     //-----------
@@ -55,10 +56,25 @@ class Build extends \Genr8\Parse
 
         return array($data,$options);
     }
+    private function makePostDir($path)
+    {
+        $p = explode('/',str_replace(APPPATH,'',$path));
+        $filename = array_pop($p);
+        $c = '';
+
+        foreach ($p as $dir) {
+            if (empty($dir)) { continue; }
+            $c .= $dir.'/';
+            if (!is_dir($c)) {
+                mkdir($c);
+            }
+        }
+    }
 }
 
 // LET'S GO! ---------------
 echo '['.date('m.d.Y H:i:s').'] Generating site!'."\n";
+define('ENV','prod');
 
 // look in _posts and file the *.md files
 $p = new Genr8\Posts();

@@ -31,9 +31,14 @@ class Posts
                 $fileParts = explode('__',$fileinfo->getFilename());
                 $postPath  = implode('/',explode('-',$fileParts[0]));
 
-                // only find the ones that are recent
+                // only find the ones that are recent (and not future dated)
                 if ($after == null) { $after = strtotime('-7 days'); }
-                if (strtotime($fileParts[0]) < $after) { continue; }
+                if (strtotime($fileParts[0]) < $after) {
+                    continue;
+                }
+                if (ENV !== 'dev' && strtotime($fileParts[0]) > time()) {
+                    continue;
+                }
 
                 // parse the header
                 $contents = file_get_contents($this->postDir.'/'.$fileinfo->getFilename());
