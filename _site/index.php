@@ -76,6 +76,12 @@
     <span class="post_date">@2012-08-11</span>&nbsp;
     <a class="post_title" href="/2012/08/11/Can't-Trust-the-$_SERVER.html">Can't Trust the $_SERVER</a>
     <br /><br />
+    <span class="post_date">@2012-08-13</span>&nbsp;
+    <a class="post_title" href="/2012/08/13/Stay-Safe-in-Your-Phpini.html">Stay Safe in Your Php.ini</a>
+    <br /><br />
+    <span class="post_date">@2012-08-14</span>&nbsp;
+    <a class="post_title" href="/2012/08/14/Using-Security-Questions-as-Salt.html">Using Security Questions as a Salt</a>
+    <br /><br />
 </p>
         <footer>
                 websec.io &copy; <?php echo date('Y'); ?>
