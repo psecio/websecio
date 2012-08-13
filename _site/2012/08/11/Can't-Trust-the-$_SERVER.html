@@ -1,0 +1,153 @@
+<html>
+    <head>
+        <title>websec.io</title>
+        <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet"/>
+        <link href='http://fonts.googleapis.com/css?family=Brawler' rel='stylesheet' type='text/css'>
+        <style>
+            .site-title {
+                font-size:22px;
+                color: #fea801;
+                font-family: 'Brawler', serif;
+            }
+            a.post_title {
+                font-size: 20px;
+            }
+            span.post_date {
+                color: #CCCCCCC;
+                font-size: 12px;
+            }
+            code {
+                height: 400px;
+                width: 100%;
+                margin: 0px;
+                padding: 0px;
+            }
+            h2 {
+                margin-bottom: 3px;
+                font-family: 'Brawler', serif;
+            }
+            footer {
+                font-weight: bold;
+            }
+            a {
+                color: #c14504;
+            }
+            a:hover {
+                color: #c14504;
+            }
+            div.byline {
+                border: 0px solid #CCCCCC;
+                background-color: #EEEEEE;
+                padding: 3px;
+            }
+            div.code {
+                background-color: #EEEEEE;
+                padding: 4px;
+            }
+            .code {
+                background-color: #000000;
+                color: #fea801;
+                margin: 0px;
+                padding: 8px;
+                border: 0px;
+                font-family: Consolas, monospace;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div class="container">
+                <ul class="nav">
+                <li class="active"><a href="/" class="site-title">websec.io</a></li>
+                <li class="topnav"><a href="/about.php">About</a></li>
+                </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+        <h2>Can't Trust the $_SERVER</h2>
+
+<p><div class="byline">
+    @posted: 2012-08-11 , @author: Chris Cornutt
+</div></p>
+
+<p>As most developers discover within their first week of using PHP, there's these handy
+things called "superglobals" that can make life easier. They give you access to things
+from the URL, values submitted through forms, other information about the request and 
+the server itself:</p>
+
+<ul>
+<li><code>$_GET</code> - Values from the URL</li>
+<li><code>$_POST</code> - Posted values (like from a form)</li>
+<li><code>$_REQUEST</code> - A comination of the GET &amp; POST</li>
+<li><code>$_FILES</code> - Posted file information</li>
+<li><code>$_SESSION</code> - Session information</li>
+<li><code>$_SERVER</code> - Information about the server</li>
+</ul>
+
+<p>This last one, <code>$_SERVER</code>, on the surface looks like something quite useful - it gives
+us access to values like the server address (IP), the protocol the request was made with
+and various other things. But it pulls it all from the server itself, right?</p>
+
+<p><strong>Wrong.</strong></p>
+
+<p>See, there's a few values that PHP drops in based on the current request. If you assume
+that these values are set in stone, you could be in for a world of hurt as would-be 
+attackers walk all over your application and inject their content as they please.</p>
+
+<p>Thankfully, not all of the values in <code>$_SERVER</code> can be exploited. Here's a list of 
+the ones to watch out for and why:</p>
+
+<ul>
+<li><strong>PHP_SELF:</strong> 
+Filename of the current script (relative to docroot). If you want to use this
+<strong>always</strong> filter!</li>
+<li><strong>REQUEST_URI:</strong>
+URI that's used to access the page including everything from the URL requested</li>
+<li><strong>HTTP_HOST:</strong>
+Has the value from the request's "Host:" header, client can set this</li>
+<li><strong>HTTP_USER_AGENT:</strong>
+The client can set this to pretty much whaever they want (it could be "fuzzy bunny"
+if they wanted it to be).</li>
+<li><strong>PATH_INFO:</strong> 
+Pathname as provided by the client (totally insecure)</li>
+<li><strong>PATH_TRANSLATED:</strong> 
+Filesystem path to the script, but still could include XSS contentIncludes all values from the requested path</li>
+<li><strong>HTTP_REFERER:</strong> 
+Set by the user agent, cannot be trusted</li>
+<li><strong>HTTP_ACCEPT:</strong>
+If one is set, pulls from the "Accept:" header in the request</li>
+<li><strong>HTTP_ACCEPT_CHARSET:</strong>
+Comes from the "Accept-Charset" header in the request</li>
+<li><strong>HTTP_ACCEPT_ENCODING:</strong>
+Pulls from the "Accept-Encoding:" header in the request</li>
+<li><strong>HTTP_ACCEPT_LANGUAGE:</strong>
+Value directly from the "Accept-Language:" header on the request</li>
+<li><strong>HTTP_CONNECTION:</strong>
+Contains the value of the "Connection:" header, client can set to anything</li>
+</ul>
+
+<p>As you can see, there's a good size list of things that cannot be trusted. Fortunately,
+there's a few simple steps you can take to help prevent cross-site scripting attacks 
+coming from these values. It really boils down to what should be a mantra for web 
+developers by now (regardless of language): "Filter Input, Escape Output". Too bad 
+"FIEO" doesn't exactly roll off the tongue...</p>
+
+<p>One easy way to filter out a lot of the issues is to pass these values through a 
+call to <a href="http://php.net/strip_tags">strip_tags</a> or <a href="http://php.net/htmlspecialchars">htmlspecialchars</a>
+to remove malicious content. Obviously, this is pretty high-level filtering, so you
+should still take some care when using the result. Nothing is infalable and users 
+are tricky things - always filter!</p>
+
+<p>By the way, one of the worst offenders I've seen is <code>PHP_SELF</code>. I've seen waaaaaay too 
+many examples that use it in a <code>&lt;form&gt;</code> tag.</p>
+
+<p>For more information on this, check out <a href="http://www.php.net/manual/en/reserved.variables.server.php">the manual page for $_SERVER</a> in the PHP.net manual.</p>
+        <footer>
+                websec.io &copy; <?php echo date('Y'); ?>
+        </footer>
+        </div>
+    </body>
+</html>
