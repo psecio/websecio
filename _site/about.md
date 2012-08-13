@@ -17,4 +17,12 @@ list, so if you're looking to share your knowledge with the world consider
 <a href="mailto:info@phpdeveloper.org?subject=Writing for Websec.io">sending us an email</a> and
 include the topic(s) you'd like to talk about!
 
+Suggested topics include:
+
+- Prevention of common web security issues (XSS, CSRF, etc)
+- Best practices in user authentication/authorization
+- Preventing server-related security issues
+- Cryptography and its application
+- and more!
+
 Thanks!
