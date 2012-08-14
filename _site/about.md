@@ -25,4 +25,9 @@ Suggested topics include:
 - Cryptography and its application
 - and more!
 
+#### Attribution
+
+All articles posted to this site remain the property of their authors. They are free to use
+them wherever and however they wish. Don't copy them.
+
 Thanks!
