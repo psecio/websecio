@@ -49,6 +49,20 @@ to this kind of attack is in the unfiltered output of a user string that could c
 it essentially removes most issues that could be XSS related. Things like `>`, `&` and quotes are
 all sanitized.
 
+The quick and dirty way to take care of lots of your issues is by escaping with `htmlspecialchars`:
+
+`
+<?php
+echo htmlspecialchars($_GET['test']);
+?>
+`
+
+This removes the HTML from the input and does a prety good job of sanitizing things. One thing
+to be careful of, though - while it can prevent the inclusion of full tags, you still have to be 
+careful if you're using the user inputted value in you tag attributes.
+
+Remember the mantra: **Filter Input, Escape Output** (FIEO it!)
+
 ### Resources
 
 * [OWASP XSS Cheat Sheet](https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet)
