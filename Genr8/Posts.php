@@ -52,7 +52,9 @@ class Posts
                 );
 
                 // populate the data
-                $this->postData[] = array(
+                $pub = strtotime($fileParts[0]);
+
+                $this->postData[$pub] = array(
                     'title'    => $options['title'],
                     'file'     => $this->postDir.'/'.$fileinfo->getFilename(),
                     'posted'   => $fileParts[0],
@@ -66,6 +68,7 @@ class Posts
             }
         }
 
+        krsort($this->postData);
         return $this->postData;
     }
 
