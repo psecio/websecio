@@ -33,6 +33,7 @@ class Build extends \Genr8\Parse
     {
         $this->makePostDir(APPPATH.'/'.$filename);
         file_put_contents(APPPATH.'/'.$filename,$data);
+        $this->template = '';
     }
     //-----------
     private function parseHeader($data)
@@ -95,7 +96,12 @@ $b = new Build();
 $b->addData('links',$posts);
 $b->export($b->compile('_site/index.md'),'_site/index.php');
 
+// build our "About" page
 $b->export($b->compile('_site/about.md'),'_site/about.php');
+
+// build the feed with the latest report details
+$b->addData('pubDate',date('r'));
+$b->export($b->compile('_site/feed.md'),'_site/feed.xml');
 
 echo '['.date('m.d.Y H:i:s').'] Generation complete!'."\n";
 ?>

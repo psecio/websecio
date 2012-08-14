@@ -64,6 +64,7 @@ class Parse
         $data = $this->applyTemplate($data);
 
         $data = $this->formatCode($data);
+        $data = $this->formatRss($data);
 
         if (method_exists($this, 'postCompile')) {
             $data = $this->postCompile($data);
@@ -95,5 +96,13 @@ class Parse
         }
 
         return $data;
+    }
+    private function formatRss($data)
+    {
+        return str_replace(
+            array('<p><?xml','</rss></p>'),
+            array('<?xml','</rss>'),
+            $data
+        );
     }
 }

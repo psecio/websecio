@@ -60,7 +60,8 @@ class Posts
                     'content'  => $data,
                     'author'   => $options['author'],
                     'email'    => $options['email'],
-                    'byline'   => $byline
+                    'byline'   => $byline,
+                    'pubdate'  => date('r',strtotime($fileParts[0]))
                 );
             }
         }
