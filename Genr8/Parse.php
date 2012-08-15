@@ -37,11 +37,11 @@ class Parse
         if (!empty($this->template)) {
             $template = file_get_contents($this->template);
             $data = array('content'=>$data);
+
+            // see if we need to show comments too...
             if ($this->includeComments == true) {
                 $data['showComments'] = true;
             }
-            print_r($data);
-            
             $data = $this->twig->render($template,$data);
         }
         return $data;
