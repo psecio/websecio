@@ -8,6 +8,7 @@ class Parse
     protected $twig         = null;
     private $templateData   = array();
     public $template        = '';
+    public $includeComments = false;
 
     public function __construct()
     {
@@ -35,7 +36,13 @@ class Parse
     {
         if (!empty($this->template)) {
             $template = file_get_contents($this->template);
-            $data = $this->twig->render($template,array('content'=>$data));
+            $data = array('content'=>$data);
+            if ($this->includeComments == true) {
+                $data['showComments'] = true;
+            }
+            print_r($data);
+            
+            $data = $this->twig->render($template,$data);
         }
         return $data;
     }

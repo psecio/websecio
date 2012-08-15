@@ -84,6 +84,8 @@ $posts = $p->find();
 // build each of the posts
 foreach ($posts as $post) {
     $bp = new Build();
+    $bp->includeComments = true;
+
     foreach ($post as $name => $d) {
         $bp->addData($name,$d);
     }
