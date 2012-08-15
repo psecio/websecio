@@ -85,8 +85,8 @@ class Parse
                     $data = str_replace(
                         $match,
                         '<pre class="code">'.str_replace(
-                            array('<code>','</code>'),
-                            array('',''),
+                            array('<code>','</code>','<?php'),
+                            array('','','&lt?php'),
                             $match
                         ).'</pre>',
                         $data
