@@ -33,9 +33,9 @@ class Posts
 
                 // only find the ones that are recent (and not future dated)
                 if ($after == null) { $after = strtotime('-7 days'); }
-                if (strtotime($fileParts[0]) < $after) {
+                /*if (strtotime($fileParts[0]) < $after) {
                     continue;
-                }
+                }*/
                 if (ENV !== 'dev' && strtotime($fileParts[0]) > time()) {
                     continue;
                 }
