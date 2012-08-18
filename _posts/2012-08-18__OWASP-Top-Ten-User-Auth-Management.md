@@ -119,4 +119,6 @@ on those.
 
 #### Resources
 * [OWASP page on User Auth](https://www.owasp.org/index.php/Top_10_2010-A3)
+* [Dos and Dont's of Client Authentication](http://pdos.csail.mit.edu/papers/webauth%3asec10.pdf)
+* [Authentication - Security Best Practices: Palisade](http://palizine.plynt.com/issues/2004Jul/safe-auth-practices/)
 
