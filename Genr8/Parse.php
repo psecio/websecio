@@ -72,8 +72,10 @@ class Parse
             array('content'=>$data), 
             $this->options
         );
+//print_r($d);
 
         $data = $this->applyTemplate($d);
+//print_r($data);
 
         $data = $this->formatCode($data);
         $data = $this->formatRss($data);
@@ -87,29 +89,29 @@ class Parse
 
     private function formatCode($data)
     {
-        $content = $data['content'];
-
         // see if we have code and un-escape the content
-        preg_match_all('#<code>(.*?)<\/code>#ms',$content,$matches);
+        if (is_array($data)) {
+            $data = $data['content'];
+        }
+        preg_match_all('#<code>(.*?)<\/code>#ms',$data,$matches);
 
         if (!empty($matches[0])) {
             foreach ($matches[0] as $match) {
                 $ct = count(explode("\n",$match));
                 if ($ct>2) {
-                    $content = str_replace(
+                    $data = str_replace(
                         $match,
                         '<pre class="code">'.str_replace(
                             array('<code>','</code>','<?php'),
                             array('','','&lt?php'),
                             $match
                         ).'</pre>',
-                        $content
+                        $data
                     );
                 }
             }
         }
 
-        $data['content'] = $content;
         return $data;
     }
     private function formatRss($data)
