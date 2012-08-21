@@ -30,4 +30,10 @@ Suggested topics include:
 All articles posted to this site remain the property of their authors. They are free to use
 them wherever and however they wish. Don't copy them.
 
+### Disclaimer
+
+All information on this site is provided for informational purposes only. Websec.io
+is not liable for the direct or indirect use of this information. Websec.io bears no 
+responsibility for content or misues of information contained in its articles.
+
 Thanks!
