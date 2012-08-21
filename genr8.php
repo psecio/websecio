@@ -105,6 +105,12 @@ $b->export($b->compile('_site/about.md'), '_site/about.php');
 
 // build the feed with the latest report details
 $b->addData('pubDate', date('r'));
+
+foreach ($posts as $index => $post) {
+    $posts[$index]['title'] = htmlentities($post['title']);
+}
+
+$b->addData('links', $posts);
 $b->export($b->compile('_site/feed.md'), '_site/feed.xml');
 
 echo '['.date('m.d.Y H:i:s').'] Generation complete!'."\n";
