@@ -1,5 +1,6 @@
 ---
 layout: default
+title: web application security
 ---
 <h2>Latest Articles</h2>
 <br />

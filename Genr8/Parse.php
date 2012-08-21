@@ -36,7 +36,6 @@ class Parse
     {
         if (!empty($this->template)) {
             $template = file_get_contents($this->template);
-            $data = array('content'=>$data);
 
             // see if we need to show comments too...
             if ($this->includeComments == true) {
@@ -68,7 +67,13 @@ class Parse
             $this->templateData
         );
 
-        $data = $this->applyTemplate($data);
+        // merge in our other options
+        $d = array_merge(
+            array('content'=>$data), 
+            $this->options
+        );
+
+        $data = $this->applyTemplate($d);
 
         $data = $this->formatCode($data);
         $data = $this->formatRss($data);
@@ -82,26 +87,29 @@ class Parse
 
     private function formatCode($data)
     {
+        $content = $data['content'];
+
         // see if we have code and un-escape the content
-        preg_match_all('#<code>(.*?)<\/code>#ms',$data,$matches);
+        preg_match_all('#<code>(.*?)<\/code>#ms',$content,$matches);
 
         if (!empty($matches[0])) {
             foreach ($matches[0] as $match) {
                 $ct = count(explode("\n",$match));
                 if ($ct>2) {
-                    $data = str_replace(
+                    $content = str_replace(
                         $match,
                         '<pre class="code">'.str_replace(
                             array('<code>','</code>','<?php'),
                             array('','','&lt?php'),
                             $match
                         ).'</pre>',
-                        $data
+                        $content
                     );
                 }
             }
         }
 
+        $data['content'] = $content;
         return $data;
     }
     private function formatRss($data)
