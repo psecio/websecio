@@ -32,14 +32,16 @@ they want is asking for trouble. Here's an example of checking for the extension
     `
     <?php
     $filename = 'test.txt';
-    $ext = substr($filename,'-'.(strrpos($filename,'.')+1));
-    echo 'Extension: '.$ext;
+    if (is_file(realpath($filename))) {
+        $info = pathfinfo($filename);
+        echo 'Extension: '.$info['extension'];
+    }
     ?>
     `
 
-    Obviously this is a pretty simple example and could be pretty open to exploitation with
-    things like multiple extensions or strange filenames. So, what's next that can help 
-    protect us from the bad guys?
+    Obviously this is a pretty simple example and the [pathinfo](http://php.net/pathinfo) function 
+    only helps us so far. So, what's next that can help protect us from the bad guys and their 
+    evil file uploading ways?
 
 2. **Check the MIME type**: Thankfully PHP has your back on this one too. There's some
 built in functions that can take a look at a file (post-upload) and detect what their 
@@ -59,8 +61,8 @@ given you:
     In the above example, since the file we're working with is actually a text file,
     we'd get back `text/plain`. This way, even if we rename the `test1.txt` file to something
     like `test1.jpg`, the mime type will stay the same. (You'll need PHP 5.3.x or later
-    to make native use of this functionality. If you're on an older version, check out
-    the [PECL page](http://pecl.php.net/package/fileinfo) for the extension.)
+    to make native use of this functionality. If you're on an older version (shame on you)
+    , check out the [PECL page](http://pecl.php.net/package/fileinfo) for the extension.)
 
 3. **Validate the filename**: Yes, I know this sounds similar to #1, but hear me out. 
 When the user submits a file to be uploaded, it's just a POST request with some extra
