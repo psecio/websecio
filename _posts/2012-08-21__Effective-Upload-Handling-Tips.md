@@ -140,7 +140,7 @@ browser to download the file's contents for every file you serve:
     header to force a download. This code would be placed in the proxy script you'd use
     to pull the file data from a non-docroot directory (remember MUST #4).
 
-2. ***Allow the user to upload any file**: I know this was mentioned in MUST #1, but it 
+2. **Allow the user to upload any file**: I know this was mentioned in MUST #1, but it 
 bears repeating. You have to be absolutely sure that you're limiting your users to the types
 of files they should be uploading. Dropping an upload form element onto a page without 
 restrictions might as well be asking for you to turn your server into a fileshare.
