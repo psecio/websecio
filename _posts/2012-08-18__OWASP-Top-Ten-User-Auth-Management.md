@@ -71,12 +71,17 @@ the data for your users on other systems. People are creatures of habit and will
 always use the same login information across multiple sites. Imagine the damage someone
 with even minimal skills could do with plain-text passwords at their disposal.
   
-  When a user signs up, at the very least hash their password against a static app-wide
+  When a user signs up, *at the very least* hash their password against a static app-wide
   hash that you've defined before putting the values into whatever data store you're using.
   An even better mechanism would be to create a unique hash for each user on signup 
   that you could use as the salt to generate their hashed password. This salt could be 
   combined with other information in your application to evaluate the user when they
   log in. 
+
+  This is not the pinacle of security when it comes to password storage, but you'd be
+  suprised at how many developers (and companies - big ones too) don't even bother with
+  something as small as this. If you want to take things to the next level, consider 
+  replacing the hashing option and encrypting the passwords instead.
 
 5. **For high security, whitelist**: If your application requires an even higher level
 of secuity and you're particularly concerned about users accessing things they shouldn't,
