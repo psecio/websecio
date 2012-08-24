@@ -67,8 +67,8 @@ class Build extends \Genr8\Parse
         $c = '';
 
         foreach ($p as $dir) {
-            if (empty($dir)) { 
-                continue; 
+            if (empty($dir)) {
+                continue;
             }
             $c .= $dir.'/';
             if (!is_dir($c)) {
@@ -103,13 +103,13 @@ foreach ($posts as $post) {
 // populate the index page with links
 $b = new Build();
 $b->addData('links', $posts);
-$b->export($b->compile('_site/index.md'), '_site/index.php');
+$b->export($b->compile('_static/index.md'), '_site/index.php');
 
 // build our "About" page
-$b->export($b->compile('_site/about.md'), '_site/about.php');
+$b->export($b->compile('_static/about.md'), '_site/about.php');
 
 // build the "resources" page
-$b->export($b->compile('_site/resources.md'), '_site/resources.php');
+$b->export($b->compile('_static/resources.md'), '_site/resources.php');
 
 // build the feed with the latest report details
 $b->addData('pubDate', date('r'));
@@ -119,7 +119,7 @@ foreach ($posts as $index => $post) {
 }
 
 $b->addData('links', $posts);
-$b->export($b->compile('_site/feed.md'), '_site/feed.xml');
+$b->export($b->compile('_static/feed.md'), '_site/feed.xml');
 
 echo '['.date('m.d.Y H:i:s').'] Generation complete!'."\n";
 ?>

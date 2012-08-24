@@ -5,3 +5,4 @@ web1:
     - genr8.php
   php_extensions:
     - zip
+  shared_writable_dirs: [_site]
