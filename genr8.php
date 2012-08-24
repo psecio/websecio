@@ -34,7 +34,7 @@ class Build extends \Genr8\Parse
     }
     public function export($data, $filename)
     {
-        echo '['.date('m.d.Y H:i:s').'] > Exporting to '.APPPATH.$filename.'!'."\n";
+        echo '['.date('m.d.Y H:i:s').'] > Exporting to '.APPPATH.'/'.$filename.'!'."\n";
 
         $this->makePostDir(APPPATH.'/'.$filename);
         file_put_contents(APPPATH.'/'.$filename, $data);
@@ -86,6 +86,10 @@ $env = (isset($_SERVER['argv'][1])) ? $_SERVER['argv'][1] : 'prod';
 echo '['.date('m.d.Y H:i:s').'] Generating site!'."\n";
 define('ENV', $env);
 
+// make the "_site" directory and copy over the .htaccess
+mkdir('_site');
+copy('_static/.htaccess','_site/.htaccess');
+
 // look in _posts and file the *.md files
 $p = new Genr8\Posts();
 $posts = $p->find();
@@ -99,7 +103,7 @@ foreach ($posts as $post) {
         $bp->addData($name, $d);
     }
     $result = $bp->compile($post['file']);
-    $bp->export($result, '_site/'.$post['url']);
+    $bp->export($result, '_site'.$post['url']);
 }
 
 // populate the index page with links
