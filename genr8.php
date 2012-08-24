@@ -1,6 +1,6 @@
 #!/usr/bin/env php
 <?php
-// using Genr8v2
+// using Genr8
 include_once 'vendor/autoload.php';
 include_once 'Genr8/Loader.php';
 
