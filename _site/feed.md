@@ -10,8 +10,8 @@
     {% for link in links %}
     <item>
         <title>{{ link['title'] }}</title>
-        <guid>http://websec.io/{{ link['url'] }}</guid>
-        <link>http://websec.io/{{ link['url'] }}</link>
+        <guid>http://websec.io{{ link['url'] }}</guid>
+        <link>http://websec.io{{ link['url'] }}</link>
         <description>
             by {{ link['author'] }}
         </description>
