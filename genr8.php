@@ -76,8 +76,10 @@ class Build extends \Genr8\Parse
 }
 
 // LET'S GO! ---------------
+$env = (isset($_SERVER['argv'][1])) ? $_SERVER['argv'][1] : 'prod';
+
 echo '['.date('m.d.Y H:i:s').'] Generating site!'."\n";
-define('ENV', 'prod');
+define('ENV', $env);
 
 // look in _posts and file the *.md files
 $p = new Genr8\Posts();
