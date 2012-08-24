@@ -103,6 +103,9 @@ $b->export($b->compile('_site/index.md'), '_site/index.php');
 // build our "About" page
 $b->export($b->compile('_site/about.md'), '_site/about.php');
 
+// build the "resources" page
+$b->export($b->compile('_site/resources.md'), '_site/resources.php');
+
 // build the feed with the latest report details
 $b->addData('pubDate', date('r'));
 
