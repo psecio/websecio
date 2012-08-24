@@ -34,6 +34,8 @@ class Build extends \Genr8\Parse
     }
     public function export($data, $filename)
     {
+        echo '['.date('m.d.Y H:i:s').'] > Exporting to '.APPPATH.$filename.'!'."\n";
+
         $this->makePostDir(APPPATH.'/'.$filename);
         file_put_contents(APPPATH.'/'.$filename, $data);
         $this->template = '';
