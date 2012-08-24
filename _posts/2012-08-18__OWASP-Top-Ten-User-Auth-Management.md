@@ -63,7 +63,7 @@ recommendations as to what makes stronger passwords:
   with immediate feedback as to the strength of their password (and if it meets your 
   requirements).
 
-4. **Store passwords hashed**: As tempting as it is to store the passwords as-is when
+4. **At the very least, store passwords hashed**: As tempting as it is to store the passwords as-is when
 you get them from the user directly to the database, this is essentially the same as 
 inviting any attackers in and giving them the keys to the kingdom. You have a responsibility
 not only to the user data that you're protecting with your authorization but also to 
