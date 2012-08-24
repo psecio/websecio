@@ -1,6 +1,9 @@
 #!/usr/bin/env php
 <?php
-// using Genr8
+/**
+ * Use the "genr8" command to build the posts and static pages
+ * @author Chris Cornutt <ccornutt@phpdeveloper.org>
+ */
 include_once 'vendor/autoload.php';
 include_once 'Genr8/Loader.php';
 
