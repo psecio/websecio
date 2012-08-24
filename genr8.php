@@ -87,6 +87,7 @@ echo '['.date('m.d.Y H:i:s').'] Generating site!'."\n";
 define('ENV', $env);
 
 // make the "_site" directory and copy over the .htaccess
+if (is_dir('_site')) { rmdir('_site'); }
 mkdir('_site');
 copy('_static/.htaccess','_site/.htaccess');
 
