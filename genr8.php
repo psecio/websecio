@@ -1,6 +1,9 @@
 #!/usr/bin/env php
 <?php
-// using Genr8v2
+/**
+ * Use the "genr8" command to build the posts and static pages
+ * @author Chris Cornutt <ccornutt@phpdeveloper.org>
+ */
 include_once 'vendor/autoload.php';
 include_once 'Genr8/Loader.php';
 
@@ -31,6 +34,8 @@ class Build extends \Genr8\Parse
     }
     public function export($data, $filename)
     {
+        echo '['.date('m.d.Y H:i:s').'] > Exporting to '.APPPATH.'/'.$filename.'!'."\n";
+
         $this->makePostDir(APPPATH.'/'.$filename);
         file_put_contents(APPPATH.'/'.$filename, $data);
         $this->template = '';
@@ -64,8 +69,8 @@ class Build extends \Genr8\Parse
         $c = '';
 
         foreach ($p as $dir) {
-            if (empty($dir)) { 
-                continue; 
+            if (empty($dir)) {
+                continue;
             }
             $c .= $dir.'/';
             if (!is_dir($c)) {
@@ -81,6 +86,11 @@ $env = (isset($_SERVER['argv'][1])) ? $_SERVER['argv'][1] : 'prod';
 echo '['.date('m.d.Y H:i:s').'] Generating site!'."\n";
 define('ENV', $env);
 
+// make the "_site" directory and copy over the .htaccess
+if (is_dir('_site')) { rmdir('_site'); }
+mkdir('_site');
+copy('_static/.htaccess','_site/.htaccess');
+
 // look in _posts and file the *.md files
 $p = new Genr8\Posts();
 $posts = $p->find();
@@ -94,19 +104,19 @@ foreach ($posts as $post) {
         $bp->addData($name, $d);
     }
     $result = $bp->compile($post['file']);
-    $bp->export($result, '_site/'.$post['url']);
+    $bp->export($result, '_site'.$post['url']);
 }
 
 // populate the index page with links
 $b = new Build();
 $b->addData('links', $posts);
-$b->export($b->compile('_site/index.md'), '_site/index.php');
+$b->export($b->compile('_static/index.md'), '_site/index.php');
 
 // build our "About" page
-$b->export($b->compile('_site/about.md'), '_site/about.php');
+$b->export($b->compile('_static/about.md'), '_site/about.php');
 
 // build the "resources" page
-$b->export($b->compile('_site/resources.md'), '_site/resources.php');
+$b->export($b->compile('_static/resources.md'), '_site/resources.php');
 
 // build the feed with the latest report details
 $b->addData('pubDate', date('r'));
@@ -116,7 +126,7 @@ foreach ($posts as $index => $post) {
 }
 
 $b->addData('links', $posts);
-$b->export($b->compile('_site/feed.md'), '_site/feed.xml');
+$b->export($b->compile('_static/feed.md'), '_site/feed.xml');
 
 echo '['.date('m.d.Y H:i:s').'] Generation complete!'."\n";
 ?>
