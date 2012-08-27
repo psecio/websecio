@@ -4,6 +4,6 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
 
-    RewriteRule ^/feed$ feed.xml [L]
+    RewriteRule ^feed$ feed.xml [L]
     ErrorDocument 404 /notfound.html
 </IfModule>
