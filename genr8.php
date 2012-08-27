@@ -87,7 +87,7 @@ echo '['.date('m.d.Y H:i:s').'] Generating site!'."\n";
 define('ENV', $env);
 
 // make the "_site" directory and copy over the .htaccess
-if (is_dir('_site')) { rmdir('_site'); }
+if (is_dir('_site')) { exec('rm -rf _site'); }
 mkdir('_site');
 copy('_static/.htaccess','_site/.htaccess');
 
@@ -117,6 +117,9 @@ $b->export($b->compile('_static/about.md'), '_site/about.php');
 
 // build the "resources" page
 $b->export($b->compile('_static/resources.md'), '_site/resources.php');
+
+// build the 404 page
+$b->export($b->compile('_static/notfound.md'), '_site/notfound.html');
 
 // build the feed with the latest report details
 $b->addData('pubDate', date('r'));
