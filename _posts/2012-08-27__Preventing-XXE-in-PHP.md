@@ -2,10 +2,10 @@
 layout: default
 author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
-title: Preventing XEE in PHP
+title: Preventing XXE in PHP
 ---
 
-Preventing XEE in PHP
+Preventing XXE in PHP
 --------------
 
 {{ byline }}
@@ -13,7 +13,7 @@ Preventing XEE in PHP
 There's an injection attack that's been around for a while now that's slipped under
 the radar for a lot of web application developers. Unfortunately, it can be one that
 could cause some serious information disclosure (or exploits) if it's not taken care
-of. XEE (an XML eXternal Entity) injection attack takes advantage of a part of the XML
+of. XXE (an XML eXternal Entity) injection attack takes advantage of a part of the XML
 structure that's usually reserved for defining custom entities in your XML documents -
 the ENTITY portion of the DOCTYPE definition. This section is usually used to define 
 custom entities for the document such as:
@@ -44,7 +44,7 @@ matter which - [XMLReader](http://php.net/xmlreader), [DOM](http://php.net/dom) 
 [SimpleXML](http://php.net/simplexml) - they all pretty much handle it the same way by
 default. They take whatever entities are defined in the DOCTYPE header and try to 
 expand them. This is good news for those looking for convenience but bad news for 
-those that are more security minded out there as it can lead to XEE attacks without 
+those that are more security minded out there as it can lead to XXE attacks without 
 any kind of warning from the parser.
 
 Let's look at an example to see how it could be dangerous:
@@ -99,7 +99,7 @@ libxml_disable_entity_loader(true);
 The [libxml_disable_entity_loader](http://php.net/libxml_disable_entity_loader) function
 tells the underlying `libxml` parsing to not try to interpret the values of the entities
 in the incoming XML and leave the entity references intact. If you're using SimpleXML, this
-is really the only choice to prevent an XEE attack in the incoming XML. Fortunately, the 
+is really the only choice to prevent an XXE attack in the incoming XML. Fortunately, the 
 two other XML parsing methods offer a few more features to help keep you safe while still 
 allowing for the expansion of XML entities.
 
@@ -117,7 +117,7 @@ $dom->loadXML($badXml,LIBXML_DTDLOAD|LIBXML_DTDATTR);
 In both cases, we're adding in some predefined constant values (by name) that tell the
 parser to either not allow a network connection during load (`LIBXML_NONET`) or to try to 
 parse the XML according to the DTD (`LIBXML_DTDLOAD|LIBXML_DTDATTR`). Both of these
-methods will keep your application safer from XEE issues. Of course, the XML you're
+methods will keep your application safer from XXE issues. Of course, the XML you're
 receiving is from an outside source and you **always** want to validate the data you
 pull from the XML to ensure it's a) the type you expect it to be and b) that it's not
 some kind of data being injected into your system.
@@ -131,7 +131,7 @@ your application.
 ##### Resources
 
 - [PHP manual for libxml_disable_entity_loader](http://php.net/libxml_disable_entity_loader)
-- [Zend Framework's recent XEE issue & bugfix](http://framework.zend.com/security/advisory/ZF2012-02)
+- [Zend Framework's recent XXE issue & bugfix](http://framework.zend.com/security/advisory/ZF2012-02)
 - [Webappsec.org - XML Injection](http://projects.webappsec.org/w/page/13247004/XML%20Injection)
 
 
