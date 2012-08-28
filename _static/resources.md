@@ -14,3 +14,4 @@ them over</a>!
 - [StackExchange for Web App Security](http://security.stackexchange.com/questions/tagged/web-application)
 - [Mozilla's Web App Security](http://blog.mozilla.org/webappsec/)
 - [Twitter search for "web security"](http://search.twitter.com/search.rss?q=%23web%20security)
+- [SQL Injection Testing for MySQL, MSSSQL, Oracle](http://websec.ca/kb/sql_injection)
