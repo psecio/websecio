@@ -250,7 +250,7 @@ While HMAC operations are "fast and lightweight", it is still good to keep in mi
 
 **Extending TCrypto**
 
-TCrypto is designed to be easy to extend. If you need to store the data using, say, Redis, it is enough just to create a suitable "StorageHandler" for Redis. From TCrypto's point of view, it is good as long as you code against `StorageInterface` interface. See https://github.com/timoh6/TCrypto/blob/master/library/TCrypto/StorageHandler/StorageInterface.php and https://github.com/timoh6/TCrypto/blob/master/library/TCrypto/StorageHandler/Cookie.php
+TCrypto is designed to be easy to extend. If you need to store the data using, say, Redis, it is enough just to create a suitable "StorageHandler" for Redis. From TCrypto's point of view, it is good as long as you code against `StorageInterface` interface. See [https://github.com/timoh6/TCrypto/blob/master/library/TCrypto/StorageHandler/StorageInterface.php](https://github.com/timoh6/TCrypto/blob/master/library/TCrypto/StorageHandler/StorageInterface.php) and [https://github.com/timoh6/TCrypto/blob/master/library/TCrypto/StorageHandler/Cookie.php](https://github.com/timoh6/TCrypto/blob/master/library/TCrypto/StorageHandler/Cookie.php)
 
 Cookie replay
 -------------
