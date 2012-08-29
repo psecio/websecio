@@ -285,5 +285,5 @@ More short term features planned are to provide a method that detects if data co
 Links
 -----
 
-https://github.com/timoh6/TCrypto
-http://timoh6.github.com/
+[TCrypto on Github](https://github.com/timoh6/TCrypto)
+[timoh on Github](http://timoh6.github.com/)
