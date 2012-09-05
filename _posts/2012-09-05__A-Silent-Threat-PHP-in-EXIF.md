@@ -90,6 +90,12 @@ Some articles suggest the use of the [getimagesize](http://php.net/getimagesize)
 first line of defense. This is a good way to detect if an image is corrupted or not, but does
 nothing to prevent the EXIF injection described here.
 
+There's another approach that could be taken as well if you're very concerned about anything getting
+past - you could use the [exif_read_data](http://php.net/manual/en/function.exif-read-data.php) function
+in PHP to go through all of the headers and see if there's PHP code in any of them. This is great...if
+it's available. The exif extension isn't one of the defaults for a lot of the distributions out there
+so take that into consideration when planning your application's upload functionality.
+
 #### Uploads in the Document Root (a Worst Practice)
 
 This EXIF topic also brings up a related something that can be considered a very bad security practice when
