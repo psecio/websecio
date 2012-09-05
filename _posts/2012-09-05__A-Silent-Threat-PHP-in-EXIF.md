@@ -86,10 +86,12 @@ is executed as if it was a local PHP script. Whatever permissions the web server
 script will as well - including the ability to pull in other, more dapaging scripts and execute
 them locally.
 
+##### Getimagesize
 Some articles suggest the use of the [getimagesize](http://php.net/getimagesize) function as a
 first line of defense. This is a good way to detect if an image is corrupted or not, but does
 nothing to prevent the EXIF injection described here.
 
+##### Exif Extension
 There's another approach that could be taken as well if you're very concerned about anything getting
 past - you could use the [exif_read_data](http://php.net/manual/en/function.exif-read-data.php) function
 in PHP to go through all of the headers and see if there's PHP code in any of them. This is great...if
