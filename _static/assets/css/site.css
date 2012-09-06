@@ -1,0 +1,53 @@
+.site-title {
+    font-size:22px;
+    color: #fea801;
+    font-family: 'Brawler', serif;
+}
+a.post_title {
+    font-size: 20px;
+}
+span.post_date {
+    color: #CCCCCCC;
+    font-size: 12px;
+}
+code {
+    height: 400px;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+h2 {
+    margin-bottom: 3px;
+    font-family: 'Brawler', serif;
+}
+footer {
+    font-weight: bold;
+}
+a {
+    color: #c14504;
+}
+a:hover {
+    color: #c14504;
+}
+div.byline {
+    border: 0px solid #CCCCCC;
+    background-color: #EEEEEE;
+    padding: 3px;
+}
+div.code {
+    background-color: #EEEEEE;
+    padding: 4px;
+}
+.code {
+    background-color: #000000;
+    color: #fea801;
+    margin: 0px;
+    padding: 8px;
+    border: 0px;
+    font-family: Consolas, monospace;
+}
+span.tagline {
+    padding-left: 89px;
+    padding-top: 0px;
+    color: #CCCCCC;
+}

@@ -91,6 +91,9 @@ if (is_dir('_site')) { exec('rm -rf _site'); }
 mkdir('_site');
 copy('_static/.htaccess','_site/.htaccess');
 
+// copy over the assets
+exec('cp -r _static/assets _site/assets');
+
 // look in _posts and file the *.md files
 $p = new Genr8\Posts();
 $posts = $p->find();
@@ -117,6 +120,9 @@ $b->export($b->compile('_static/about.md'), '_site/about.php');
 
 // build the "resources" page
 $b->export($b->compile('_static/resources.md'), '_site/resources.php');
+
+// build the "Glossary" page
+$b->export($b->compile('_static/glossary.md'), '_site/glossary.php');
 
 // build the 404 page
 $b->export($b->compile('_static/notfound.md'), '_site/notfound.html');
