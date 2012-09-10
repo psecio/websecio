@@ -11,34 +11,34 @@ Encrypted Sessions with PHP
 {{ byline }}
 
 When working with sessions in PHP, the data that lives inside of them needs to be taken
-into account. Depending on the application, there may or may not be sensitive data living 
+into account. Depending on the application, there may or may not be sensitive data living
 inside of them. If there is, you'll need to come up with a better way of protecting that
 data than just the regular session handling methods - something with a little cryptography
 involved.
 
-> **NOTE:** This method uses a pre-PHP 5.4 release kind of session handler. In 5.4 the 
-[SessionHandler](http://www.php.net/manual/en/class.sessionhandler.php) and 
+> **NOTE:** This method uses a pre-PHP 5.4 release kind of session handler. In 5.4 the
+[SessionHandler](http://www.php.net/manual/en/class.sessionhandler.php) and
 [SessionHandlerInterface](http://www.php.net/manual/en/class.sessionhandlerinterface.php) classes
 were introduced as a way to standardize (more formally) how custom session handlers should work.
 
 By default, PHP takes the values in your sessions and serializes them to be put in a text
-file in the `session.save_path` for your application. This is fine if you're only putting 
-non-sensitive data into your sessions, but could be a major issue is there's something you 
+file in the `session.save_path` for your application. This is fine if you're only putting
+non-sensitive data into your sessions, but could be a major issue is there's something you
 need to protect. It's even worse on a shared hosting environment (as was [mentioned in another
 post](/2012/08/24/Shared-Hosting-PHP-Session-Security.html)) where anyone running under the
 same web server user can potentially access your session files...or even inject content into
 them, bypassing security restrictions completely.
 
-So, what's a good solution that's relatively simple and doesn't involve a lot of effort on your 
+So, what's a good solution that's relatively simple and doesn't involve a lot of effort on your
 part to accomplish? Easy - encrypting the data that goes into and comes out of your session!
-To get the ball rolling, here's an example of an ecrypted session handler that protects the 
-data with Rijndael 256 encryption. While these last two aren't to be relied on solely as 
-protection from session hijacking, they're a simple layer of protection that can help block 
+To get the ball rolling, here's an example of an ecrypted session handler that protects the
+data with Rijndael 256 encryption. While these last two aren't to be relied on solely as
+protection from session hijacking, they're a simple layer of protection that can help block
 some of the more basic attacks on your site.
 
 #### The Code
 
-Here's the code, an explaination will follow:
+Here's the code, an explanation will follow:
 
 `
 <?php
@@ -64,7 +64,7 @@ class Session extends Base
 
     /**
      * Init the object, set up the session config handling
-     * 
+     *
      * @return null
      */
     public function __construct()
@@ -79,7 +79,7 @@ class Session extends Base
 
     /**
      * Encrypt the given data
-     * 
+     *
      * @param mixed $data Session data to encrypt
      * @return mixed $data Encrypted data
      */
@@ -101,7 +101,7 @@ class Session extends Base
 
     /**
      * Decrypt the given session data
-     * 
+     *
      * @param mixed $data Data to decrypt
      * @return $data Decrypted data
      */
@@ -125,7 +125,7 @@ class Session extends Base
 
     /**
      * Set the key for the session encryption to use (default is set)
-     * 
+     *
      * @param string $key Key string
      * @return null
      */
@@ -136,7 +136,7 @@ class Session extends Base
 
     /**
      * Write to the session
-     * 
+     *
      * @param integer $id   Session ID
      * @param mixed   $data Data to write to the log
      * @return null
@@ -145,13 +145,13 @@ class Session extends Base
     {
         $path = $this->savePathRoot.'/'.$id;
         $data = $this->encrypt($data);
-        
+
         file_put_contents($path, $data);
     }
 
     /**
      * Read in the session
-     * 
+     *
      * @param string $id Session ID
      * @return null
      */
@@ -170,7 +170,7 @@ class Session extends Base
 
     /**
      * Open the session
-     * 
+     *
      * @param string $savePath  Path to save the session file locally
      * @param string $sessionId Session ID
      * @return null
@@ -182,7 +182,7 @@ class Session extends Base
 
     /**
      * Close the session
-     * 
+     *
      * @return boolean Default return (true)
      */
     public function close()
@@ -192,8 +192,8 @@ class Session extends Base
 
     /**
      * Perform garbage collection on the session
-     * 
-     * @param int $maxlifetime Lifetime in seconds 
+     *
+     * @param int $maxlifetime Lifetime in seconds
      * @return null
      */
     public function gc($maxlifetime)
@@ -211,7 +211,7 @@ class Session extends Base
 
     /**
      * Destroy the session
-     * 
+     *
      * @param string $id Session ID
      * @return null
      */
@@ -230,39 +230,39 @@ class Session extends Base
 If you've never done any kind of custom session handling in PHP before, this setup might
 look a little foreign to you. In most situations, the default session handling is "good enough"
 for what an application needs. There's not really anything sensitive happening there. Thankfully,
-though, when you need a little bit more out of your session handling than the defaults, PHP 
+though, when you need a little bit more out of your session handling than the defaults, PHP
 is there to lend a hand. The language allows for custom session handling classes that let
 you redefine the default methods for things like read, write or create with your own methods
 for dealing with the data.
 
-In the example above, you can see that there's definitions for functions like `read`, `write`, 
-`close` and `gc` - all default session handling methods. These are all connected to the current 
+In the example above, you can see that there are definitions for functions like `read`, `write`,
+`close` and `gc` - all default session handling methods. These are all connected to the current
 application's session handling method via that call to `session_set_save_handler` in the
-constructor of the class. This assigns the different methods of the class to the different actions 
+constructor of the class. This assigns the different methods of the class to the different actions
 of the process. PHP then knows to run the data read/write for session information through these
 methods.
 
 #### The Methods
 
 Let's start from the beginning and work our way out - the `open` method is one of the simplest in
-the class, thankfully. It doesn't really do much as opening a session doesn't have much to do 
-with encrypting the contents of it. The actual file for the encrypted contents is created elsewhere, 
+the class, thankfully. It doesn't really do much as opening a session doesn't have much to do
+with encrypting the contents of it. The actual file for the encrypted contents is created elsewhere,
 otherwise we'd put that part in there. PHP passes in a path to save the file to (auto-generated) and
 the new session ID if you want to do some custom handling there.
 
-The next step in the handling of the session is the `read` method. This is where some of the magic 
-of the encryption comes in. As you can see, the `read` method takes the session ID and reads in the 
+The next step in the handling of the session is the `read` method. This is where some of the magic
+of the encryption comes in. As you can see, the `read` method takes the session ID and reads in the
 file data that's inside. This data is then passed off to the `decrypt` method for handling and checking.
 
 #### A bit about Rijndael (256)
 
 Let's stop for a second and describe the architecture of how we're using Rijndael 256 in our handling.
-This level of encrypton (let's just call it "R256" for brevity's sake) was inevented by two Bellgian 
-cyrptographers, Joan Daemen & Vincent Rijmen, as a part of the [Advanced Encryption Standard (AES)](http://en.wikipedia.org/wiki/Advanced_Encryption_Standard) project. This project, the successor to the DES standard, is 
-a U.S. Federal Government standard level of encryption and is used in some cases by the NSA. 
+This level of encrypton (let's just call it "R256" for brevity's sake) was inevented by two Bellgian
+cyrptographers, Joan Daemen & Vincent Rijmen, as a part of the [Advanced Encryption Standard (AES)](http://en.wikipedia.org/wiki/Advanced_Encryption_Standard) project. This project, the successor to the DES standard, is
+a U.S. Federal Government standard level of encryption and is used in some cases by the NSA.
 
 The block size in Rinjndael is 128 bits and the block size can be either 128, 192 or - what we're using -
-256 bits (as used in AES). There's a lot of factors that go into the calculation of the algorithm and, 
+256 bits (as used in AES). There's a lot of factors that go into the calculation of the algorithm and,
 if you're interested, you can check out [this page on Wikipedia](http://en.wikipedia.org/wiki/Advanced_Encryption_Standard)
 for all the gory details. There are some known attack vectors on this encryption but the actions it performs
 operate on a low RAM, high speed level so it's pretty well suited to work in our session handler.
@@ -271,36 +271,37 @@ operate on a low RAM, high speed level so it's pretty well suited to work in our
 
 Now that you have a little bit of context around the R256 level of encryption, let's take a look at how
 it's implemented. When our session is opened, the handler immediately tries to read from the data that may
-or may not be there. Obviously, with the initializing of a new session, the file won't be there, so 
-there's nothing to read from. The custom session handler doesn't care about this and keeps moving 
+or may not be there. Obviously, with the initializing of a new session, the file won't be there, so
+there's nothing to read from. The custom session handler doesn't care about this and keeps moving
 on if there's nothing there.
 
 The first time it tries to write to the session, though, the data passes through the `encrypt` method before
 it finally ends up in the file. Here's what that method does before it finishes:
 
 1. Gets the correct [Initialization Vector size](http://en.wikipedia.org/wiki/Initialization_vector) for our
-level of encryption. In the case of R256, that IV size (with the CBC mode) is `32`. 
+level of encryption. In the case of R256, that IV size (with the CBC mode) is `32`.
 2. This length is then used to randomly generate the IV with the `mcrypt_create_iv`function.
 3. The keysize for R256 is then found (`32` again) and is used, along with the key defined in the class, to
 create a key for use in the [mcrypt_encrypt](http://php.net/mcrypt_encrypt) function call.
-4. The generated IV and R256-encrypted data is then appended together and `base64_encoded` and returned to 
+4. The generated IV and R256-encrypted data is then appended together and `base64_encoded` and returned to
 the session.
 
 Why, do you ask, did we include the IV along with the data in the session? Well, the trick is that, when you
-use the code to generate the IV from the IV key length each time, you're going to get a different IV value. 
-Since one IV was used to encrypt the data in the first place, you need that same one to be able to decrypt 
+use the code to generate the IV from the IV key length each time, you're going to get a different IV value.
+Since one IV was used to encrypt the data in the first place, you need that same one to be able to decrypt
 it on the other side.
 
 > **NOTE:** Several of the major frameworks handle their session encryption this way too. They embed the IV into
-the session data to make it easier to retrieve when the data is pulled back out. Since it's only a small piece of 
+the session data to make it easier to retrieve when the data is pulled back out. Since it's only a small piece of
 the information used to encrypt the data, it's relatively safe.
 
-Then we move along to the other major operation of the session hnadler - the `read`. It's pretty much just doing
-what we did with the `write` only in reverse. In the `read` method, the session handler [base64_decodes](http://php.net/base64_decode) the data and, based on another call to [get the key size](http://php.net/mcrypt_get_key_size) 
+Then we move along to the other major operation of the session handler - the `read`. It's pretty much just doing
+what we did with the `write` only in reverse. In the `read` method, the session handler [base64_decodes](http://php.net/base64_decode)
+the data and, based on another call to [get the key size](http://php.net/mcrypt_get_key_size)
 to get the size of the key, the string of that length is split off of the data as the IV and the rest is the
 actual session data.
 
-There's a few other getters and setters that could probably be thrown into the class to help with 
+There's a few other getters and setters that could probably be thrown into the class to help with
 customizing some of the settings like the key used for the encryption or the session save path, but
 it's a pretty complete example. The way that it's set up, you can also switch out the type of encryption
 with whatever you want and the IV size will be automatically detected and appended correctly.
