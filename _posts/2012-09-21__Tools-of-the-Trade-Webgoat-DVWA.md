@@ -13,7 +13,7 @@ Tools of the Trade: WebGoat & DVWA
 When you're just starting out and trying to figure out what in your application could
 open a hole for a potential security threat, you might not know exactly what you're
 looking for. You've read all the descriptions of what an [XSS](http://en.wikipedia.org/wiki/Cross-site_scripting)
-vunlerability is or what kind of damage a [RFI](http://en.wikipedia.org/wiki/Remote_file_inclusion)
+vulnerability is or what kind of damage a [RFI](http://en.wikipedia.org/wiki/Remote_file_inclusion)
 injection could cause, but you don't have much hands on experience as to what those
 sorts of issues really look like. Thankfully, there's two tools that can introduce you
 to these kinds of issues (and more) and will let you practice your skills to apply
@@ -70,7 +70,7 @@ The WebGoat project shows you vulnerabilities like:
 - Parameter tampering
 - Session management issues
 
-Each of the lessions has a few sub-sectons, so be sure you have some time to work on these
+Each of the lessons has a few sub-sections, so be sure you have some time to work on these
 things. You can always come back later, of course.
 
 #### DVWA (Damn Vulnerable Web Application)
