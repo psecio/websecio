@@ -236,3 +236,7 @@ Check out the other resources below for more details:
 
 - [Security Considerations](https://developer.mozilla.org/en-US/docs/Persona/Security_Considerations)
   for implementation.
+
+- Blog post on [how it's different from OpenID](http://identity.mozilla.com/post/7669886219/how-browserid-differs-from-openid)
+
+- [Mozilla Identity Blog](http://identity.mozilla.com/)
