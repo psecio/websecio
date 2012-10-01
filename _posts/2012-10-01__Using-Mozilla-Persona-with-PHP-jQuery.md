@@ -150,7 +150,6 @@ if(isset($_POST['assertion'])) {
 
     curl_setopt_array($c, array(
         CURLOPT_RETURNTRANSFER  => true,
-        CURLOPT_HEADER          => true,
         CURLOPT_POST            => true,
         CURLOPT_POSTFIELDS      => $data,
         CURLOPT_SSL_VERIFYPEER  => true,
@@ -160,9 +159,7 @@ if(isset($_POST['assertion'])) {
     $result = curl_exec($c);
     curl_close($c);
 
-    $p = explode("\r\n\r\n",$result);
-    $response = json_decode($p[2]);
-
+    $response = json_decode($result);
     if ($response->status == 'okay') {
         $_SESSION['user'] = $response;
     }
