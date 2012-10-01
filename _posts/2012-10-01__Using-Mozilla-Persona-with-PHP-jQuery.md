@@ -240,3 +240,5 @@ Check out the other resources below for more details:
 - Blog post on [how it's different from OpenID](http://identity.mozilla.com/post/7669886219/how-browserid-differs-from-openid)
 
 - [Mozilla Identity Blog](http://identity.mozilla.com/)
+
+
