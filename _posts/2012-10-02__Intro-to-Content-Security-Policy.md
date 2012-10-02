@@ -354,3 +354,4 @@ Working Draft if you want to follow up with the development of the specification
 - [Parallel processing in PHP](http://www.d-mueller.de/blog/parallel-processing-in-php/)
 - [Der Einfluss von Cookies auf die Performance einer Webseite](http://www.d-mueller.de/blog/der-einfluss-von-cookies-auf-die-performance-einer-webseite/)
 - [Web-Performance: Best Practices](http://www.d-mueller.de/blog/web-performance-best-practices/)
+
