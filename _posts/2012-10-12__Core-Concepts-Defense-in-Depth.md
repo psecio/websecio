@@ -62,7 +62,7 @@ and be sure the user should even be there. By enforcing both of these kinds of c
 (these layers) you're protecting your application even more and reducing that attack 
 surface. 
 
-This is just a simple example of the kinds of layers you might have protectng your 
+This is just a simple example of the kinds of layers you might have protecting your 
 system. As your environment gets more complex and more "moving parts" are added, the 
 kinds of layers will grow. For example, say your site is a simple messaging service
 that you offer via a basic site for reading and sending messages to other users all
@@ -103,7 +103,7 @@ together the system you want.
 
 The solutions you use should be reputable, tested (unit tests, functional tests, etc)
 and should be something that is well-known enough to have been through its paces and 
-tested. The same kind of ideals should be held by you and your developmen team as well. 
+tested. The same kind of ideals should be held by you and your development team as well. 
 Be sure that whatever solution you come up with has been well-tested and put through its
 paces, preferably in an internal, more real world situation.
 
@@ -114,7 +114,7 @@ it doesn't get out of control:
 
 - **Start simple, then add complexity**: Sometimes the simplest approach is the best. Figure
   out what kind of security and protection the parts of your app need and work with that.
-  If there's a special stuation that comes up (like implementing a more complex authentication
+  If there's a special situation that comes up (like implementing a more complex authentication
   mechanism), be sure to research several solutions before picking a path. Complexity
   means specialized knowledge and if the people with that knowledge aren't available,
   you're in for some major pains.
@@ -155,14 +155,14 @@ ask as you're in your planning sessions:
   or static) be included along with each request? How fine grained should we get with our
   permissioning and should it be different for the frontend (view) than the backend?
 
-- **Thresholds**: Do we need to imlement any kind of thresholds for our users? If we're 
-  offering an API, do we want to throttle requests to prevent over consuption of resources
+- **Thresholds**: Do we need to implement any kind of thresholds for our users? If we're 
+  offering an API, do we want to throttle requests to prevent over consumption of resources
   by a single user? How do we want to handle authentication failures? If they hit a certain
   number, do we block the requestor for a certain length of time?
 
 #### Summary
 
-As you wok through your application, there's always going to be things that pop up that
+As you work through your application, there's always going to be things that pop up that
 might not fit into your current security model. Thankfully, if you've followed the "interlocking
 pieces" philosophy that the "Defense in Depth" methodology promotes, it could be as simple
 as turning up a different kind of tool for that situation. Just remember to keep the complexity
