@@ -228,3 +228,4 @@ is even better.
 - Wikipedia on [Cross-Site Request Forgery](http://en.wikipedia.org/wiki/Cross-site_request_forgery)
 - [OWASP on CSRF](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_%28CSRF%29)
 - WebAppSec's page [about CSRF](http://projects.webappsec.org/w/page/13246919/Cross%20Site%20Request%20Forgery)
+
