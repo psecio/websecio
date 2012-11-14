@@ -15,7 +15,7 @@ resource.
 
 As with any community resource, we're always on the hunt for good articles to include in our
 list, so if you're looking to share your knowledge with the world consider
-<a href="mailto:info@phpdeveloper.org?subject=Writing for Websec.io">sending us an email</a> and
+<a href="mailto:websec@phpdeveloper.org?subject=Writing for Websec.io">sending us an email</a> and
 include the topic(s) you'd like to talk about!
 
 Suggested topics include:
