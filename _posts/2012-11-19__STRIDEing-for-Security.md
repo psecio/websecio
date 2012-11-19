@@ -211,3 +211,4 @@ and see which makes the most sense to get fixed.
 - [Microsoft on Threat Modeling](http://msdn.microsoft.com/en-us/library/ff648644.aspx)
 - [Wikipedia on STRIDE](en.wikipedia.org/wiki/STRIDE_(security))
 - [OWASP on STRIDE](https://www.owasp.org/index.php/Threat_Risk_Modeling#STRIDE)
+
