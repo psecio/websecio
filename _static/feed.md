@@ -9,11 +9,11 @@
     <ttl>30</ttl>
     {% for link in links %}
     <item>
-        <title><![CDATA[{{ link['title'] }}]]></title>
+        <title>{{ link['title'] }}</title>
         <guid>http://websec.io{{ link['url'] }}</guid>
         <link>http://websec.io{{ link['url'] }}</link>
         <description>
-            <![CDATA[by {{ link['author'] }}]]>
+            by {{ link['author'] }}
         </description>
         <pubDate>{{ link['pubdate'] }}</pubDate>
     </item>
