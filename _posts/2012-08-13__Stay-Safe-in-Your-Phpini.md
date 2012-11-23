@@ -41,7 +41,7 @@ includes for each request, you think that's all pretty secure but what happens i
 an exploit is found and the attacker figures out how to get your code to include one of their
 scripts from a remote server? Mass chaos, that's what. Since the inclusion of files doesn't
 show up in any logging (unless you have something custom), it's very hard to diagnose something
-like this. You can give yourself an extra layer of protection by enabling both of these features. 
+like this. You can give yourself an extra layer of protection by disabling both of these features. 
 They prevent the opening of resources from remote sourcesa and help to lock down your code 
 to only local resources. This can be a bother if your app needs to pull in data from an external 
 source, but you'd be better off in the long run having some other process do that pull rather than 
