@@ -3,7 +3,7 @@ $layout = file_get_contents('../_layouts/default.html');
 
 // find items matching tagged value
 $parts = explode('/', $_SERVER['REQUEST_URI']);
-$tag = htmlspecialchars($parts[count($parts)-1], ENT_QUOTES, UTF-8);
+$tag = htmlspecialchars($parts[count($parts)-1], ENT_QUOTES, "UTF-8");
 
 $lines = file('tagged.txt');
 $content = '<h2>Matches for "'.$tag.'"</h2><br />';
