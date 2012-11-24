@@ -5,6 +5,8 @@
     RewriteCond %{REQUEST_FILENAME} !-d
 
     RewriteRule ^feed$ feed.xml [L]
+    RewriteRule ^tagged tagged.php [L]
+
     RewriteRule Preventing\-XEE '/2012/08/27/Preventing-XXE-in-PHP.html' [L]
     ErrorDocument 404 /notfound.html
 </IfModule>

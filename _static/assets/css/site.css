@@ -46,8 +46,18 @@ div.code {
     border: 0px;
     font-family: Consolas, monospace;
 }
-span.tagline {
+span.author {
     padding-left: 89px;
     padding-top: 0px;
     color: #9E9E9E;
+}
+span.tagline {
+    padding-left: 10px;
+    padding-top: 0px;
+    color: #9E9E9E;
+}
+span.summary {
+    padding-left: 89px;
+    padding-top: 0px;
+    color: #757474;   
 }
