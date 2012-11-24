@@ -28,8 +28,8 @@ class Posts
         foreach ($dir as $fileinfo) {
             if (!$fileinfo->isDot() && $fileinfo->getExtension() == 'md') {
 
-                $fileParts = explode('__',$fileinfo->getFilename());
-                $postPath  = implode('/',explode('-',$fileParts[0]));
+                $fileParts = explode('__', $fileinfo->getFilename());
+                $postPath  = implode('/', explode('-', $fileParts[0]));
 
                 // only find the ones that are recent (and not future dated)
                 if ($after == null) { $after = strtotime('-7 days'); }
@@ -63,7 +63,9 @@ class Posts
                     'author'   => $options['author'],
                     'email'    => $options['email'],
                     'byline'   => $byline,
-                    'pubdate'  => date('r',strtotime($fileParts[0]))
+                    'pubdate'  => date('r',strtotime($fileParts[0])),
+                    'tags'     => (isset($options['tags'])) ? explode(',',$options['tags']) : null,
+                    'summary'  => (isset($options['summary'])) ? $options['summary'] : null
                 );
             }
         }
