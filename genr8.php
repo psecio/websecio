@@ -30,6 +30,9 @@ class Build extends \Genr8\Parse
     }
     public function postCompile($data)
     {
+        // find the code blocks
+        //error_log($data);
+
         return $data;
     }
     public function export($data, $filename)
@@ -134,8 +137,14 @@ foreach ($posts as $index => $post) {
     $posts[$index]['title'] = htmlentities($post['title']);
 }
 
+// build the tags-to-posts crossreference
+$b->export($b->compile('_static/tagged.md'), '_site/tagged.txt');
+
 $b->addData('links', $posts);
 $b->export($b->compile('_static/feed.md'), '_site/feed.xml');
+
+// manually copy the tagged.php
+exec('cp _static/tagged.php _site/tagged.php');
 
 echo '['.date('m.d.Y H:i:s').'] Generation complete!'."\n";
 ?>
