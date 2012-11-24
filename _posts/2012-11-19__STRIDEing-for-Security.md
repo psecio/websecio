@@ -3,6 +3,8 @@ layout: default
 author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
 title: STRIDEing for Security
+tags: stride,sdlc,threatmodel
+summary: The STRIDE method of threat modeling gives you a simple way to evaluate the possible weak points in your application.
 ---
 
 STRIDEing for Security
