@@ -3,6 +3,7 @@ layout: default
 author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
 title: OWASP Top Ten: Cross-Site Scripting (XSS)
+tags: xss,owasp
 ---
 
 OWASP Top Ten: Cross-Site Scripting (XSS)
