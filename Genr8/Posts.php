@@ -47,7 +47,8 @@ class Posts
                 $byline = $this->twig->render(file_get_contents(APPPATH.'/_layouts/byline.html'),
                     array(
                         'author' => $options['author'],
-                        'posted' => $fileParts[0]
+                        'posted' => $fileParts[0],
+                        'tags'   => (isset($options['tags'])) ? explode(',',$options['tags']) : null
                     )
                 );
 

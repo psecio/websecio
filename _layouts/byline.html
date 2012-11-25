@@ -1,3 +1,10 @@
 <div class="byline">
     @posted: {{ posted }} , @author: {{ author }}
+    {% if tags %}
+    <span class="tagline">
+        {% for tag in tags %}
+            <a style="font-size:11px" href="/tagged/{{ tag }}">#{{ tag }}</a>
+        {% endfor %}
+    </span>
+    {% endif %}
 </div>
