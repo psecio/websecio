@@ -3,6 +3,7 @@ layout: default
 author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
 title: Protect Yourself with the Google Safe Browsing API
+summary: Google offers an API that tells you if a site is "safe". Read on to learn how to use it.
 ---
 
 Protect Yourself with the Google Safe Browsing API

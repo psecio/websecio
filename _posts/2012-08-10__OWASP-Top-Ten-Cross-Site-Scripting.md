@@ -4,6 +4,7 @@ author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
 title: OWASP Top Ten: Cross-Site Scripting (XSS)
 tags: xss,owasp
+summary: A look at one of the "Top 10" from the OWASP largest vulnerabilities list
 ---
 
 OWASP Top Ten: Cross-Site Scripting (XSS)

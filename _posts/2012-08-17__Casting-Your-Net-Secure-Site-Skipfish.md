@@ -3,6 +3,7 @@ layout: default
 author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
 title: Casting Your Net: Securing Your Site with Skipfish
+summary: See how to use this simple tool to help find flaws in your applications.
 ---
 
 Casting Your Net: Securing Your Site with Skipfish

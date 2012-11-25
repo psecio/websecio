@@ -3,6 +3,7 @@ layout: default
 author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
 title: Shared Hosting: PHP Session Security
+summary: A few things to think about when using PHP sessions, especially on a shared server.
 ---
 
 Shared Hosting: PHP Session Security

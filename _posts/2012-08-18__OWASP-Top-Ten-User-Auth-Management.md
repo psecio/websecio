@@ -3,6 +3,7 @@ layout: default
 author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
 title: OWASP Top Ten: Broken Authentication and Session Management
+summary: A look at one of the "Top 10" from the OWASP largest vulnerabilities list
 ---
 
 OWASP Top Ten: Broken Authentication and Session Management

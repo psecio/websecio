@@ -3,6 +3,7 @@ layout: default
 author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
 title: Effective File Upload Handling Tips
+summary: Handling user input can be tricky, file uploads even more so - here's some do's, don't and musts.
 ---
 
 Effective File Upload Handling Tips

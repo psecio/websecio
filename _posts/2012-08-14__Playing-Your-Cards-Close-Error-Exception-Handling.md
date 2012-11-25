@@ -3,6 +3,7 @@ layout: default
 author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
 title: Playing Your Cards Close - Custom Error & Exception Handling
+summary: Default PHP error handling shares way too much information - learn how to use custom handlers to prevent it.
 ---
 
 Playing Your Cards Close - Custom Error & Exception Handling

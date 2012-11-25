@@ -3,6 +3,7 @@ layout: default
 author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
 title: Can't Trust the $_SERVER
+summary: PHP's $_SERVER suportglobal contains some values that come from the user - be careful what you use!
 ---
 
 Can't Trust the $_SERVER

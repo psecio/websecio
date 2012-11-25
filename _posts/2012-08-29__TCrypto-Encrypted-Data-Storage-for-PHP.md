@@ -3,6 +3,7 @@ layout: default
 author: Timo
 email: timoh6@gmail.com
 title: TCrypto: Encrypted data storage for PHP applications
+summary: Learn how to use the TCrypto library to protect your data.
 ---
 
 TCrypto: Encrypted data storage for PHP applications

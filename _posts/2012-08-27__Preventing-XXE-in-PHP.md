@@ -3,6 +3,7 @@ layout: default
 author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
 title: Preventing XXE in PHP
+summary: XML External Entity attacks are a lesser-known threat, learn how to protect your PHP application.
 ---
 
 Preventing XXE in PHP

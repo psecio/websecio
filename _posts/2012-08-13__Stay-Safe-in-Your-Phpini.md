@@ -3,6 +3,7 @@ layout: default
 author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
 title: Stay Safe in Your Php.ini
+summary: The default settings in PHP's configuration aren't all secure, here's a few you should change.
 ---
 
 Stay Safe in Your Php.ini
