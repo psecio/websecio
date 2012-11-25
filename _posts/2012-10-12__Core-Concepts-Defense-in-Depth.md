@@ -3,6 +3,7 @@ layout: default
 author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
 title: Core Concepts: Defense in Depth
+summary: Part of the "Core Concepts" series, examines the "Defence in Depth" thought pattern to secure your app.
 ---
 
 Core Concepts: Defense in Depth

@@ -3,6 +3,7 @@ layout: default
 author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
 title: Code Defensively
+summary: Sometimes the best defense is a good offense - "think like an attacker" with these hints to prevent exploits.
 ---
 
 Code Defensively

@@ -3,6 +3,7 @@ layout: default
 author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
 title: Encrypted Sessions with PHP
+summary: Use a simple custom session handler in PHP to protect your session data on the server.
 ---
 
 Encrypted Sessions with PHP

@@ -3,6 +3,7 @@ layout: default
 author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
 title: Using Mozilla Persona with PHP & jQuery
+summary: An introduction to this new tool and implementing it with jQuery and a bit of PHP
 ---
 
 Using Mozilla Persona with PHP & jQuery

@@ -3,6 +3,7 @@ layout: default
 author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
 title: Tools of the Trade: WebGoat & DVWA
+summary: Learn about the WebGoat and Damn Vulnerable Web Application tools to practice your testing skills.
 ---
 
 Tools of the Trade: WebGoat & DVWA

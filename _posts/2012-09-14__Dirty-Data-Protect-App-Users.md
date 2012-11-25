@@ -3,6 +3,7 @@ layout: default
 author: Jeremy Cook
 email: jeremycook0@gmail.com
 title: Dirty Data: Protecting Your App from Your Users
+summary: All user data is tainted, but how to you effectively deal with it? Read on...
 ---
 
 Dirty Data: Protecting Your App from Your Users

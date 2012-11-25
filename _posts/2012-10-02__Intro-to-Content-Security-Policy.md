@@ -3,6 +3,7 @@ layout: default
 author: David Müller
 email: mueller.dav@googlemail.com
 title: An Introduction to Content Security Policy
+summary: Learn how to protect your site with a Content Security Policy limiting Javascript, CSS and reporting.
 ---
 
 An Introduction to Content Security Policy
