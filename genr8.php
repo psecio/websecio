@@ -140,6 +140,8 @@ foreach ($posts as $index => $post) {
 // build the tags-to-posts crossreference
 $b->export($b->compile('_static/tagged.md'), '_site/tagged.txt');
 
+echo file_get_contents('_site/tagged.txt');
+
 $b->addData('links', $posts);
 $b->export($b->compile('_static/feed.md'), '_site/feed.xml');
 
