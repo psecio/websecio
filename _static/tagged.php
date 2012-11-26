@@ -29,7 +29,7 @@ foreach ($matches as $match) {
 
     $content .= <<<EOD
         <span class="post_date">$date</span>&nbsp;&nbsp;
-        <a class="post_title" href="$url">$title</a>
+        <a class="post_title" href="$url">$title</a><br /><br />
 EOD;
 }
 
