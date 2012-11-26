@@ -137,7 +137,7 @@ foreach ($posts as $index => $post) {
     $posts[$index]['title'] = htmlentities($post['title']);
 }
 
-echo file_get_contents('_site/tagged.txt');
+echo file_get_contents(APPPATH.'/_site/tagged.txt');
 
 $b->addData('links', $posts);
 $b->export($b->compile('_static/feed.md'), '_site/feed.xml');
