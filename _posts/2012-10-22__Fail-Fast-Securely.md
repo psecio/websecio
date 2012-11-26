@@ -3,6 +3,7 @@ layout: default
 author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
 title: Fail Fast Securely
+tags: code,exception,error,tutorial
 summary: One key to keeping an app secure is the when & how of dealing with failure.
 ---
 

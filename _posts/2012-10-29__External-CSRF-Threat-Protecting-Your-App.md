@@ -3,7 +3,7 @@ layout: default
 author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
 title: The External CSRF Threat & Protecting Your App
-tagged: csrf, introduction
+tags: csrf,introduction
 summary: Cross-site Request Forgeries are still a common threat. Learn how to protect your app from this pesky issue.
 ---
 
