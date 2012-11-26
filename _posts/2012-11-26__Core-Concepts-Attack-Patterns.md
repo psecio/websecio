@@ -3,7 +3,7 @@ layout: default
 author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
 title: Core Concepts: Attack Patterns
-tags: attack,pattern,coreconcept
+tags: attack,pattern,coreconcepts
 summary: Attack patterns provide a common language to refer to threat types and methods of attack.
 ---
 
