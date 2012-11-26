@@ -137,13 +137,13 @@ foreach ($posts as $index => $post) {
     $posts[$index]['title'] = htmlentities($post['title']);
 }
 
-// build the tags-to-posts crossreference
-$b->export($b->compile('_static/tagged.md'), '_site/tagged.txt');
-
 echo file_get_contents('_site/tagged.txt');
 
 $b->addData('links', $posts);
 $b->export($b->compile('_static/feed.md'), '_site/feed.xml');
+
+// build the tags-to-posts crossreference
+$b->export($b->compile('_static/tagged.md'), '_site/tagged.txt');
 
 // manually copy the tagged.php
 exec('cp _static/tagged.php _site/tagged.php');
