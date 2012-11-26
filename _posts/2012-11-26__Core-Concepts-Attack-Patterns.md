@@ -172,8 +172,3 @@ personal information via human interactions.
 - [The Art of Software Security Assessment: Identifying and Preventing Software Vulnerabilities](http://www.amazon.com/Software-Security-Assessment-Vulnerabilities-ebook/dp/B004XVIWU2)
 - [U.S. Homeland Security on Attack Patterns](https://buildsecurityin.us-cert.gov/bsi/articles/knowledge/attack.html)
 
-
-
-
-
-
