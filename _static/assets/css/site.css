@@ -29,6 +29,13 @@ a {
 a:hover {
     color: #c14504;
 }
+td {
+    padding: 3px;
+    border: 1px solid #CCCCCC;
+}
+table {
+    margin-bottom: 8px;
+}
 div.byline {
     border: 0px solid #CCCCCC;
     background-color: #EEEEEE;
