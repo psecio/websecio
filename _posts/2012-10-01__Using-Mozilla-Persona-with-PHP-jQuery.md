@@ -155,7 +155,7 @@ if(isset($_POST['assertion'])) {
         CURLOPT_POST            => true,
         CURLOPT_POSTFIELDS      => $data,
         CURLOPT_SSL_VERIFYPEER  => true,
-        CURLOPT_SSL_VERIFYHOST  => true
+        CURLOPT_SSL_VERIFYHOST  => 2
     ));
 
     $result = curl_exec($c);
