@@ -17,9 +17,9 @@ class Posts
 
     /**
      * Find the posts
-     * 
+     *
      * @param int $after Timestamp to find posts after
-     * 
+     *
      * @return null
      */
     public function find($after=null)
@@ -44,11 +44,16 @@ class Posts
                 $contents = file_get_contents($this->postDir.'/'.$fileinfo->getFilename());
                 list($data,$options) = $this->parseHeader($contents);
 
+                $tags = (isset($options['tags'])) ? explode(',',$options['tags']) : array();
+                foreach ($tags as $index => $tag) {
+                    $tags[$index] = trim($tag);
+                }
+
                 $byline = $this->twig->render(file_get_contents(APPPATH.'/_layouts/byline.html'),
                     array(
                         'author' => $options['author'],
                         'posted' => $fileParts[0],
-                        'tags'   => (isset($options['tags'])) ? explode(',',$options['tags']) : null
+                        'tags'   => $tags
                     )
                 );
 
