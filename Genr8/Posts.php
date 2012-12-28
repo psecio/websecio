@@ -41,8 +41,12 @@ class Posts
                     continue;
                 }
 
+                $parts = explode('-', $fileParts[0]);
+                array_pop($parts);
+
                 // parse the header
-                $contents = file_get_contents($this->postDir.'/'.$fileinfo->getFilename());
+                //$contents = file_get_contents($this->postDir.'/'.$fileinfo->getFilename());
+                $contents = file_get_contents($this->postDir.'/'.implode('/', $parts).'/'.$fileinfo->getFilename());
                 list($data,$options) = $this->parseHeader($contents);
 
                 $tags = (isset($options['tags'])) ? explode(',',$options['tags']) : array();
@@ -63,7 +67,7 @@ class Posts
 
                 $this->postData[$pub] = array(
                     'title'    => $options['title'],
-                    'file'     => $this->postDir.'/'.$fileinfo->getFilename(),
+                    'file'     => $this->postDir.'/'.implode('/', $parts).'/'.$fileinfo->getFilename(),
                     'posted'   => $fileParts[0],
                     'url'      => '/'.$postPath.'/'.str_replace('.md','.html',$fileParts[1]),
                     'content'  => $data,
