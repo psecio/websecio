@@ -24,9 +24,10 @@ class Posts
      */
     public function find($after=null)
     {
-        $dir = new \DirectoryIterator($this->postDir);
+	$dir = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($this->postDir));
+
         foreach ($dir as $fileinfo) {
-            if (!$fileinfo->isDot() && $fileinfo->getExtension() == 'md') {
+            if ($fileinfo->getExtension() == 'md') {
 
                 $fileParts = explode('__', $fileinfo->getFilename());
                 $postPath  = implode('/', explode('-', $fileParts[0]));
