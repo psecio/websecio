@@ -3,7 +3,7 @@ layout: default
 author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
 title: SQLi in NoSQL - A Word of Warning
-tags: sqli, sqlinjection, nosql, mongodb
+tags: sqli,sqlinjection,nosql,mongodb
 summary: Just because you're using a NoSQL db doesn't mean you're safe from SQL injections.
 ---
 
