@@ -141,7 +141,7 @@ $b->addData('links', $posts);
 $b->export($b->compile('_static/feed.md'), '_site/feed.xml');
 
 // build the tags-to-posts crossreference
-$b->export($b->compile('_static/tagged.md'), '_site/tagged.txt');
+$b->export(str_replace(array('<p>','</p>'), '', $b->compile('_static/tagged.md')), '_site/tagged.txt');
 
 // manually copy the tagged.php
 exec('cp _static/tagged.php _site/tagged.php');
