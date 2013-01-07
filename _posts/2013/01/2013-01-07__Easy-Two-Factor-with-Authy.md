@@ -219,4 +219,3 @@ system you can then offer to your users for their added security.
 - [REST API documentation](http://docs.authy.com/)
 - [Authy-php on Github](https://github.com/authy/authy-php)
 
-
