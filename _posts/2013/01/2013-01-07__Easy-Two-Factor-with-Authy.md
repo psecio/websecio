@@ -148,7 +148,7 @@ their codes immediately. They'll be given a screen similar to this:
 ![Authy phone application](http://blog.authy.com/assets/posts/phones.png)
 
 There's a countdown below the number that shows how much longer it's good for. Of course,
-the user can always choose to recycle it before the time's up, but the default is 30 seconds.
+the user can always choose to recycle it before the time's up, but the default is 20 seconds.
 
 Remember that "Authy ID" I mentioned before? Well, when the user is created successfully, 
 you'll get an ID set on the user object. This can be fetched via the `$user->id()` method
@@ -218,5 +218,4 @@ system you can then offer to your users for their added security.
 - [Authy.com](http://authy.com)
 - [REST API documentation](http://docs.authy.com/)
 - [Authy-php on Github](https://github.com/authy/authy-php)
-
 
