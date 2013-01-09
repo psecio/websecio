@@ -148,4 +148,3 @@ exec('cp _static/tagged.php _site/tagged.php');
 
 echo '['.date('m.d.Y H:i:s').'] Generation complete!'."\n";
 ?>
-
