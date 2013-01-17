@@ -4,7 +4,7 @@ author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
 title: Password Hashing with Zend\Crypt
 tags: encrption,bcrypt,password,hash
-summary: 
+summary: The Zend\Crypt component of the Zend Framework makes bcrypting your passwords simple.
 ---
 
 Password Hashing with Zend\Crypt
@@ -18,18 +18,18 @@ users. There's more and more tools showing up that make use of it to automatical
 generate the hashes from a users password. In this article I'm going to look at a 
 part of the [Zend Framework v2](http://framework.zend.com/) - `Zend\Crypt` - that provides 
 an easy interface to `bcrypt` functionality you can quickly get set up and working in your 
-application. For those that might be familiar with the Zend Framwork in its previous 
+application. For those that might be familiar with the Zend Framework in its previous 
 forms, you might be wondering if you have to install the entire framework just to get 
-this small part of it. Thankfully, the porject has fully embraced the Composer 
+this small part of it. Thankfully, the project has fully embraced the Composer 
 installation tool and have made the various parts of the framework available independently.
 
 We'll get to that in just a bit, though - right now I want to talk a bit about `bcrypt`...
 
 #### Why Bcrypt?
 
-During the natual progress of enhancing security in web applications, there've been a lot 
-of cryptographic algorythms that have come and gone. There's been several in just recent years
-that have been rendered "unsafe" for efective usage because techniques have been found to 
+During the natural progress of enhancing security in web applications, there've been a lot 
+of cryptographic algorithms that have come and gone. There's been several in just recent years
+that have been rendered "unsafe" for effective usage because techniques have been found to 
 break them and reverse engineer the value the hash came from. One example is the infamous
 [rainbow table](http://en.wikipedia.org/wiki/Rainbow_table) that has helped to make using 
 `md5` hashing almost a thing of the past.
@@ -74,11 +74,11 @@ method here, just to keep things simple. In your `composer.json` file, you'll ne
 If you've used Composer in the past, you'll notice something a little different about this
 configuration. The Zend Framework project has set up their own package server to share out 
 their own components. Since it's not related to the main Composer repository (on Packagist.org), 
-you have to tell Composer where to find it. The `repositories` section above points to the 
+you have to tell Composer where to find it. The `repositoriess` section above points to the 
 project's "packages" location and sets a type of "composer". Then, when the `composer.phar install`
 command is run, it can correctly pull in the `Zend\Crypt` library automatically. 
 
-There are  few dependencies that come with it, but they're pretty minmal - `Zend\Math`, 
+There are  few dependencies that come with it, but they're pretty minimal - `Zend\Math`, 
 `Zend\ServiceManager` and `Zend\Stdlib`. They're used by different parts of `Zend\Crypt`
 and don't bring much overhead with them at all.
 
@@ -112,7 +112,7 @@ $salt = $bcrypt->getSalt();
 Similarly, you can use the `setSalt` method on the object if you'd like to always use the
 same salt value each time (or one you've generated yourself).
 
-Remember how I mentioned that you could manualy increase the complexity of the resulting 
+Remember how I mentioned that you could manually increase the complexity of the resulting 
 hash by changing the "cost" of the generation? Well, there's a method in `Zend\Crypt` 
 for that too: `setCost`:
 
@@ -130,6 +130,22 @@ When you start getting too much higher than their default 14, things start to sl
 pretty quickly. Bcrypting is a powerful method of hashing, but no one out there is going
 to say its the fastest.
 
+#### Verifying the hash
+
+There's also a handy method included in the class that makes it simple to take the 
+password a user gives you and compare it against the hash you provide for validity:
+
+`
+<?php
+$bcrypt = new Zend\Crypt\Password\Bcrypt();
+if ($bcrypt->verify($password, $hash)) {
+    echo "And there was much rejoicing";
+} else {
+    echo "No shrubbery for you";
+}
+?>
+`
+
 #### PHP Compatibility
 
 One thing to note, `Zend\Crypt` checks the PHP version that its being run with at the 
@@ -146,7 +162,7 @@ function for evaluation and processing.
 #### That's it?
 
 Yep, that's all you'll need to do to get started hashing your passwords with bcrypt. Of
-course, you don't necessarily need a library (or three) to get this kind of fnctionality into
+course, you don't necessarily need a library (or three) to get this kind of functionality into
 your app, but it's a nice, easy drop-in solution that can get you going quickly. Plus, you
 have the added benefit of it being a part of a framework with some great backing, both
 corporate and community.
