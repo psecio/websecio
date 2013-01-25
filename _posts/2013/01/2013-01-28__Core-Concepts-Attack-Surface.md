@@ -29,11 +29,35 @@ CLASP (Comprehensive, Lightweight Application Security Process) provides a well-
 - Entry points (API)
 - Entry points (Web)
 - Open ports (80, 443, 8080, etc)
-- 
+- Software changes
+    -> authentication/authorization
+    -> change in access default - fail positive vs fail negative
+    -> new features
+    -> access control logic
+- Environment changes
+    -> hardware
+    -> database systems
+    -> updated language versions (like PHP)
 
+#### Minimizing The Surface
+
+- evaluate the proposed features to find possible abuse areas
+- evaluate it in the context of the application
+- research alternatives to the feature (ex. a different UI to make less of a need for searching)
+
+#### How to help
+
+- create a standard security policy
+    -> input handling
+    -> output filtering
+    -> fail positive/negative for permissioning
+
+- create effective logging and monitoring
 
 #### Resources
 
 - [OWASP Attack Surface Analysis Cheat Sheet](https://www.owasp.org/index.php/Attack_Surface_Analysis_Cheat_Sheet)
 - [Attack Surface Metric](http://www.cs.cmu.edu/~pratyus/tse10.pdf)
 - [Measuring the Attack Surface of Enterprise Software](http://www.cs.cmu.edu/~wing/publications/ManadhataKarabulutWing08.pdf)
+- [OWASP CLASP Project](https://www.owasp.org/index.php/Category:OWASP_CLASP_Project)
+
