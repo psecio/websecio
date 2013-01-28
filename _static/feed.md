@@ -13,7 +13,7 @@
         <guid>http://websec.io{{ link['url'] }}</guid>
         <link>http://websec.io{{ link['url'] }}</link>
         <description>
-            by {{ link['author'] }}
+            {{ link['summary'] }}
         </description>
         <pubDate>{{ link['pubdate'] }}</pubDate>
     </item>

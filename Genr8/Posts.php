@@ -76,7 +76,7 @@ class Posts
                     'byline'   => $byline,
                     'pubdate'  => date('r',strtotime($fileParts[0])),
                     'tags'     => (isset($options['tags'])) ? explode(',',$options['tags']) : null,
-                    'summary'  => (isset($options['summary'])) ? $options['summary'] : null
+                    'summary'  => (isset($options['summary'])) ? htmlspecialchars($options['summary']) : null
                 );
             }
         }
