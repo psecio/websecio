@@ -13,7 +13,7 @@ Core Concepts: Attack Surface
 {{ byline }}
 
 If you've ever looked at your application and wondered what kind of attacks it could be 
-vulnerabile to or what kind of resources exposed, you're already familiar with this "core
+vulnerable to or what kind of resources exposed, you're already familiar with this "core
 concept" term and may not know it. The "Attack Surface" of your application is just this.
 It's the part of the application that an user, malicious or not, could access directly or
 through an exploit in your system. This includes things like:
@@ -25,7 +25,7 @@ through an exploit in your system. This includes things like:
 - Open sourced code from a third party tool you're using 
 
 All of these, and more, are things that need to be taken into consideration when you're thinking
-about what's vulnerabile in your application. That's the definition:
+about what's vulnerable in your application. That's the definition:
 
 > Figuring out the Attack Surface of your application is the mapping of its parts that 
 > need to be tested for security vulnerabilities, regardless of if they're public or not.
@@ -35,12 +35,12 @@ about what's vulnerabile in your application. That's the definition:
 There's a key point in there to remember - not all of your attack surface is going to be
 a publicly facing part of your application. Remember, while a large percentage of what
 you'll need to worry about is external, there's still always the risk of internal security
-issues casued - inadvertently or on purpose - from people inside your company or organization.
+issues caused - inadvertently or on purpose - from people inside your company or organization.
 
 
 #### Aspects of The Surface
 
-There's a lot of things that can contribute to the Attack Surface of your applicaton, but 
+There's a lot of things that can contribute to the Attack Surface of your application, but 
 for the purposes of this article I'm only going to focus on the software security side. As
 developers, there's a lot that can be done to ensure that the services and functionality of
 your application are protected, without having to worry too much about the other pieces of
@@ -122,8 +122,8 @@ could abuse.
 First off, if you have the luxury of doing so, it's much easier to **evaluate the surface
 during planning**. This gives you the extra benefit of making good choices about implementations
 that will both best suit the application and introduce the least amount of risk. This isn't
-just for new feautres, either. This kind of planning should also take place when refactoring
-the application - *especially* for when critcal components (like authorization or resource
+just for new features, either. This kind of planning should also take place when refactoring
+the application - *especially* for when critical components (like authorization or resource
 permissioning) are being reworked.
 
 Secondly, if your application is pre-exisiting and you don't already have one, you should 
@@ -162,7 +162,7 @@ definition it is:
 One of the early steps in this process is determining the *attack surface* and the planning
 around the risks it introduces. Note: this kind of planning can happen before even a single
 line of code has been written (and probably should). While the CLASP project seeks to define
-the secuirty of a system as it relates to the overall picture of security withing an 
+the security of a system as it relates to the overall picture of security withing an 
 organization or project, a big part of it is assessing risks (current and future),
 planning the mitigation of them, describing the types of problems that could come up
 and the consequences of the exploitation of the issues - all things that can be discovered 
