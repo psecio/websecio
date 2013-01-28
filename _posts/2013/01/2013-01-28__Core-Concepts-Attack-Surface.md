@@ -4,7 +4,7 @@ author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
 title: Core Concepts: Attack Surface
 tags: coreconcepts,attack,surface
-summary: No summary yet
+summary: Knowing the exposed points of your application can help heighten your security and defenses.
 ---
 
 Core Concepts: Attack Surface
