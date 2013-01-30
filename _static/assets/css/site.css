@@ -52,6 +52,8 @@ div.code {
     padding: 8px;
     border: 0px;
     font-family: Consolas, monospace;
+    font-size: 12px;
+    line-height: 12pt;
 }
 span.author {
     padding-left: 89px;
