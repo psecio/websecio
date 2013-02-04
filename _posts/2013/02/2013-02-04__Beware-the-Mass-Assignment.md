@@ -94,8 +94,14 @@ review the code for your framework of choice (or library) before you fully trust
 #### Resolution
 
 So, now that we've covered what the problem is, let's look at a solution to mitigate it.
+Now, we're going to assume we're using the simple model class like above, but if you're
+using a PHP framework, chances are they have something similar. You just have to be sure
+what you're giving it.
 
-Quick and dirty - add a check to "restrict" properties
+So, for a "quick and dirty" solution, we add the concept of "protected" properties to
+our model. These properties aren't settable via the `values` method like everyhting else.
+They have to be set specifically through a setter method or something similar to get
+their values.
 
 `
 <?php
@@ -134,11 +140,46 @@ class Model
     {
         $this->admin = $admin;
     }
+
+    /**
+     * Check to see if the user is an admin
+     */
+    public function isAdmin()
+    {
+        return ($this->admin === true) ? true : false;
+    }
 }
 ?>
 `
 
-Obviously you can get more complex than this with properties/settings as a part of the model
+In the code above, we assign a set of properties (in this case, just `admin`) to a "protected"
+data set. This way, when the `values` method is executed, we're not going to accidently get
+the value of `admin` overwritten because of something the user submitted via their request.
+
+#### Don't forget the type
+
+One other thing to keep in mind that's at play here - see that `isAdmin` method in the
+first code example? Take a look at how it's evaluating to see if the user is an admin. 
+If you've been dealing with PHP for any length of time, you've probably come across the 
+difference between the "equals" and how they behave. Here's a quick overview:
+
+Operator | Name | Use
+---------|------|----------
+= | Single Equals | Assign one value to another
+== | Double Equals | Evaluate if two values are equal
+=== | Triple Equals | Evaluate if two values are equal and are same type
+
+Looking at this table, do you see the problem with the first example? (hint: it's been fixed
+in the second code example). Since the double equals checks to see if the values are the
+same but **does not** check type, it leaves the validation open to potential abuse. PHP
+is a weakly typed language and allows for the shifting of one variable type to another.
+Without type checking, you get interesting things like `"0" == false`, `1 == true` or the
+fun one `null == false`. Unless you include that extra "equals" in there, your check is 
+not valid and could cause pain for you down the line.
+
+> As a general rule, evaluation in PHP should be as **specific** as possible. Use triple equals
+> and the [ctype_*](http://php.net/ctype) methods to ensure your data is what you're expecting.
+
 
 #### Resources
 
