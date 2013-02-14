@@ -3,7 +3,7 @@ layout: default
 author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
 title: API Authentication: HMAC with Public/Private Keys
-tags: api,authentication,publickey,privatekey
+tags: api,authentication,publickey,privatekey,hmac
 summary: Implementing a public/private HMAC hashing layer to your API helps authenticate and validate the request.
 ---
 
