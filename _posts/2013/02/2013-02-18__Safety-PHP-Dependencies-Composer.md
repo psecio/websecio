@@ -148,7 +148,7 @@ security checks of the code when it's introduced into your application, you'd do
 to check any updates that come through when you run the `composer.phar update` to get
 the latest versions.
 
-#### Ultimately, you're responsble
+#### Ultimately, you're responsible
 
 One final thing to keep in mind when using third party code - you've made the choice to 
 include the library or module into your codebase and this makes you responsible for whatever
@@ -157,7 +157,8 @@ to the maintainers of the library and point fingers when your application is exp
 but **you** made the choice, and **you** have to deal with the reprocussions.
 
 Don't take the selection of third-party software lightly - be sure it's safe, secure and
-reliable.
+reliable. Following these recommendations won't prevent issues in your use of Composer, 
+but it can help prevent some of the more common issues you can control.
 
 #### Resources
 - [Composer main site](http://getcomposer.org)
