@@ -69,14 +69,14 @@ class Parse
 
         // merge in our other options
         $d = array_merge(
-            array('content'=>$data), 
+            array(
+                'content' => $data,
+                'copyright_year' => date('Y')
+            ),
             $this->options
         );
-//print_r($d);
 
         $data = $this->applyTemplate($d);
-//print_r($data);
-
         $data = $this->formatCode($data);
         $data = $this->formatRss($data);
 
@@ -93,6 +93,8 @@ class Parse
         if (is_array($data)) {
             $data = $data['content'];
         }
+        //echo 'BEFORE: '.$data."\n";
+
         preg_match_all('#<code>(.*?)<\/code>#ms',$data,$matches);
 
         if (!empty($matches[0])) {
@@ -102,8 +104,8 @@ class Parse
                     $data = str_replace(
                         $match,
                         '<pre class="code">'.str_replace(
-                            array('<code>','</code>','<?php'),
-                            array('','','&lt?php'),
+                            array('<code>','</code>','<?php','||'),
+                            array('','','&lt?php','&lt;'),
                             $match
                         ).'</pre>',
                         $data
