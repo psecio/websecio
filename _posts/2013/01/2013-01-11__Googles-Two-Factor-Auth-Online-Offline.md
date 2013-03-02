@@ -4,7 +4,7 @@ author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
 title: Google's Two-Factor Auth - Online or Offline
 tags: twofactor,authentication,google,authenticator
-summary: Using the Authy REST API, you can quickly and easily integrate two-factor auth into your system.
+summary: The Google Authenticator smartphone application makes two-factor auth simple, even without a connection.
 ---
 
 Google's Two-Factor Auth - Online or Offline
@@ -20,7 +20,7 @@ application (web or not really) to provide two-factor authentication for your us
 #### An Overview
 
 Where the other two services that I've talked about before now are remote solutions that include a bit
-of user management to go along with the two-factor verification, the Google Authentticator project is
+of user management to go along with the two-factor verification, the Google Authenticator project is
 a bit more "base level". The Authenticator only really cares about one thing - the initialization key
 that's configured in your application. There's no user-specific functionality, it's all just about
 code generation and validation.
