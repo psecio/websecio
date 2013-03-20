@@ -3,7 +3,7 @@ layout: default
 author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
 title: DREADing Your Security
-tags: dread,threatmodel,rating
+tags: dread,threatmodel,rating,coreconcepts
 summary: Using the DREAD threat modeling framework you can get a better view of the risk of your application.
 ---
 
