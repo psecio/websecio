@@ -112,7 +112,7 @@ on your team to come across and correct. Fortunately, there's a lot of things th
 be done to prevent some of the more common vulnerabilities. This leaves the less common,
 more difficult to find issues.
 
-The scnaners I mentioned previously can also be used by those trying to secure their
+The scanners I mentioned previously can also be used by those trying to secure their
 applications, giving them a "leg up" on the tactics an attacker might use. Be sure to
 shop around for a good scanner that will fit your needs. There's some that are a [bit
 more well established](http://portswigger.net/burp/) while others are
@@ -134,7 +134,7 @@ that you come up with a table of examples that testers and developers can look t
 as a guide for the rating levels.
 
 Lets follow this same theme and set up a scenario for the user authentication part of
-an application. This tends to be one of the more senesitive areas of a site, so the ratings
+an application. This tends to be one of the more sensitive areas of a site, so the ratings
 might skew a bit higher than others.
 
 So, for example, let's look at the "user can bypass completely" kind of situation. This is
@@ -156,26 +156,30 @@ inside knowledge of the code to even know its there.
 
 **D:3, R:3, E:2, A:3, D:1**
 
-#### Integration with Vulnerability Tracking
+These numbers are then added up and the ones with the highest totals are the most
+"at risk" places the development group needs to worry about.
 
+#### A Word About Risk
 
+Risk is a tricky subject to think about as you're developing an application. There's
+constantly choices that you, as a developer, will be faced with that could effect the
+risks involved for the users of your application. Every time you include a third-party
+tool, you're increasing the risk. Each time you make a decision about security default
+settings or what level of access to "fail" a user down to, you're modifying the
+app's total risks. A lot of developers I know don't think in these terms, though.
+They just want to get the work done, have things functioning correctly and well-tested.
+There's not an emphasis on risks associated with their actions.
 
-
-1. User can bypass the authentication via a SQL injection
-    D:3, R:3, E:3, A:3, D:3
-
-
-
-Category        | High (3)  | Medium (2) | Low (1)
-----------------| --------- |
-Damage          |
-Reproducibility |
-Exploitability  |
-Affected Users  |
-Discoverability |
+One way to help this (it won't solve it, but it will help) is to "push left" the
+secure development process and get devs thinking about these things *as they're writing the code*
+and not after the fact. Good security testing practices can help here too. Remember,
+don't make assumptions about the security of your application. Model it out and really
+think about how it could change things overall...and when in doubt, ask the person
+requesting the feature (or Product Owner if you're agile) for a business decision.
 
 #### Resources
 
 - [DREADful on MSDN](http://blogs.msdn.com/b/david_leblanc/archive/2007/08/13/dreadful.aspx)
 - [DREAD Rating System](http://msdn.microsoft.com/en-us/library/aa302419.aspx#c03618429_011)
+- [Application Threat Modeling on OWASP](https://www.owasp.org/index.php/Application_Threat_Modeling)
 - [A Practical Approach to Threat Modeling](http://adventuresinsecurity.com/blog/wp-content/uploads/2006/03/A_Practical_Approach_to_Threat_Modeling.pdf)
