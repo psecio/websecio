@@ -1,6 +1,6 @@
 {
     "require": {
         "dflydev/markdown": "*",
-        "twig/twig": "1.*"
+        "twig/twig": "*"
     }
 }
