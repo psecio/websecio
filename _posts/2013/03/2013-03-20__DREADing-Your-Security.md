@@ -183,3 +183,4 @@ requesting the feature (or Product Owner if you're agile) for a business decisio
 - [DREAD Rating System](http://msdn.microsoft.com/en-us/library/aa302419.aspx#c03618429_011)
 - [Application Threat Modeling on OWASP](https://www.owasp.org/index.php/Application_Threat_Modeling)
 - [A Practical Approach to Threat Modeling](http://adventuresinsecurity.com/blog/wp-content/uploads/2006/03/A_Practical_Approach_to_Threat_Modeling.pdf)
+
