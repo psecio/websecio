@@ -4,7 +4,7 @@ author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
 title: Effective Validation with Respect
 tags: validation,library,respect,filter
-summary: The Respect Validation library helps protect @todo
+summary: The Respect Validation library helps validate and protect from bad user data.
 ---
 
 Effective Validation with Respect
