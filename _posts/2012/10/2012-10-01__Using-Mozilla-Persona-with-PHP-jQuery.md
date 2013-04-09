@@ -187,6 +187,28 @@ You're looking for that `okay` value in the `status` to be sure everything's goo
 can then use this user information in your application and know they've correctly authorized 
 to your application and approved access.
 
+If you don't have access to cURL on your PHP install, you can also use the **PHP streams** (thanks to [Elizabeth Smith](http://twitter.com/auroraeosrose) for the implementation):
+
+`
+<?php
+$url = 'https://verifier.login.persona.org/verify';
+$data = 'assertion='.$_POST['assertion'].'&audience=http://persona.localhost:80';
+
+$params = array(
+  'http' => array(
+    'method' => 'POST',
+    'content' => $data
+  ),
+  'ssl' => array(
+    'verify_peer' => true
+    'verify_host' => true
+  )
+);
+
+$result = file_get_contents($url, false, $context);
+?>
+`
+
 Logging out is simple too:
 
 `
