@@ -204,7 +204,7 @@ $params = array(
     'verify_host' => true
   )
 );
-
+$context = stream_context_create($params);
 $result = file_get_contents($url, false, $context);
 ?>
 `
