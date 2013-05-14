@@ -200,7 +200,7 @@ $params = array(
     'content' => $data
   ),
   'ssl' => array(
-    'verify_peer' => true
+    'verify_peer' => true,
     'verify_host' => true
   )
 );
