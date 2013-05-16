@@ -211,6 +211,34 @@ completely relative to your system and the information you might want to track. 
 my opinion on some of the basics that would make tracking a user through your system a 
 simpler task.
 
+Using Monolog to insert this stuff is easy. You'll probably just want to use the `info`
+method for most of the audit logging:
+
+`
+<?php
+$logData = array(
+  "datetime" => new \MongoDate(),
+  "user" => array(
+    "uid" => "555-ccornutt",
+    "sid" => "fsa4324fdsbvcxbvcx7893fds"
+  ),
+  "request" => array(
+    "port": $_SERVER['SERVER_PORT'],
+    "protocol": (!empty($_SERVER['HTTPS'])) ? 'HTTPS' : 'HTTP',
+    "method": $_SERVER['HTTP_METHOD'],
+    "hostname": $_SERVER['HTTP_HOST'],
+    "servername": $_SERVER['SERVER_NAME'],
+    "uri": $_SERVER['REQUEST_URI'],
+    "remote_addr": $_SERVER['REMOTE_HOST']
+  ),
+  "event" => array(
+    // event information
+  )
+);
+$log->addInfo($logData);
+?>
+`
+
 #### Log Policies
 
 With that technical stuff out of the way, let's look at the other side of effective security
