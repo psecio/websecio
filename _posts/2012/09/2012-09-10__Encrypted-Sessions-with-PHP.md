@@ -43,7 +43,7 @@ Here's the code, an explanation will follow:
 
 `
 <?php
-class Session extends Base
+class Session
 {
     /**
      * Path to save the sessions to
