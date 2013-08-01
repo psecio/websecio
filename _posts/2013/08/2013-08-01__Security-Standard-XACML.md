@@ -4,7 +4,7 @@ author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
 title: Security Standards: XACML - Extensible Access Control Markup Language
 tags: standards,xacml,accesscontrol,markup
-summary: 
+summary: The XACML standard from OASIS provides an attribute-based authentication structure.
 ---
 
 Security Standards: XACML - Extensible Access Control Markup Language
@@ -21,7 +21,7 @@ This particular article is talking about just one of the technologies in this ju
 XACML, or the Extensible Access Control Markup Language standard, helps to define XML-based structures
 that can be evaluated - language agnostic - to check if a given users (the standard calls them *Subjects*)
 can access a given *Resource*. At its most basic level, XACML is a set of attributes and matches that are 
-comapred when the *Resource* is requested and a verdict of **PERMIT** or **DENY** is passed down from
+compared when the *Resource* is requested and a verdict of **PERMIT** or **DENY** is passed down from
 the *Decider* and *Enforcer* dynamic duo.
 
 The goal of the XACML standard is to provide a common language that applications, regardless of the language
@@ -41,7 +41,7 @@ So, by now you've noticed several terms that have been emphasized - these are al
 this common language. I'm not going to get into the same depth they do in the spec, but here's some of 
 the most common terms and their meanings:
 
-- **Resource**: The thing being acessed, be it a URL or an actual document. XACML is flexible enough to 
+- **Resource**: The thing being accessed, be it a URL or an actual document. XACML is flexible enough to 
 	cover both. Resources can have a set of attributes attached to them to help with the matching.
 - **Policy**: The policies are the heart of the XACML structure. They provide the rules that govern the 
 	permit or denial of the request for the Resource
@@ -56,7 +56,7 @@ the most common terms and their meanings:
 	as well. This could include any kind of data about the user. For obvious reasons, though, no confidential
 	information should become an attribute.
 - **Environment**: The environment is the context around the request. This could contain anything from the hostname
-	requested to the IP maching the request. Basically it's any additional information that could help the
+	requested to the IP matching the request. Basically it's any additional information that could help the
 	Decider come to its conclusion.
 - **Function**: An evaluation type to perform on the contents of the attributes to see if there's a match. 
 	Examples of this are things like "string equal", "any URI equal", "integer add" and "string normalize to 
@@ -79,12 +79,27 @@ Now that we've covered some of the basic concepts and terms behind this process,
 of information and how things are evaluated. Stick with me on this - it's not the simplest thing to follow, but 
 I'll try to make it as clear as possible.
 
-1. 
+1. The user/remote application makes a *Request* to the source with a defined XML format including what's trying 
+    to be accessed and the action they're trying to use (like "read" or "write").
+2. This *Request* is then intercepted by the *Enforcer* (PEP) and passed off to a context handler and the *Decider*
+    (PDP).
+3. The *Decider* then gathers together all of the *Policies* that apply to the *Resource* being requested.
+4. It also translates any attributes into their values to compare against the *Policies*
+5. The *Decider* then goes through each of the *Policies* and compares the *Rules* and *Matches* inside them
+    against the data given in the request and the *Subject* that was making the request.
+6. When/if matches are found, they're evaluated with the *Combining Algorithms* and *Functions* to reach a verdict
+7. If there's more than one *Policy* for the *Resource*, each of them are combined as a *Policy Set* and 
+    the results are, again, combined using a *Combining Algorithm*.
+8. The results of these evaluations are passed back up the chain, through the *Decider* and a *Response* is
+    created containing the PERMIT/DENY decision.
+
+This is a pretty basic evaluation flow. There's lots of other things that could go into it, but it's just easier 
+to start simple and work your way up.
 
 #### An example in PHP
 
 As a part of my research on the subject, I worked through creating a PHP-based library to help with the Policy
-creation and evauation. I've [posted it over on Github](https://github.com/enygma/xacml-php) for you to check
+creation and evaluation. I've [posted it over on Github](https://github.com/enygma/xacml-php) for you to check
 out if you're interested.
 
 I've pulled out the example from the README to show the usage of the library and dropped it in here. I've broken it 
@@ -175,7 +190,7 @@ $action = null;
 $result = $enforcer->isAuthorized($subject, $resource);
 
 /**
- * So, because the Subject has the "property1" Atrribute and it's
+ * So, because the Subject has the "property1" Attribute and it's
  * set to "test", the $result is true
  */
 echo "\n\n".' END RESULT: '.var_export($result, true);
