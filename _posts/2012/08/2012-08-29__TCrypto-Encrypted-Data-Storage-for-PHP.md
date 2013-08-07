@@ -201,6 +201,9 @@ $crypto = new TCrypto\CryptoHandler\McryptAes256Cbc();
 $plugins = new TCrypto\PluginContainer();
 
 // Attach an extra plugin (compress/uncompress).
+// NOTE: TCrypto will not run compression plugins if data encryption is being used.
+
+// This is because data compression may leak information about encrypted plain text. 
 $plugins->attachPlugin(new TCrypto\Plugin\CompressPlugin());
 
 // Specify some options.
@@ -280,8 +283,6 @@ Future work
 Currently TCrypto uses SHA-512 hashing, HMAC-SHA-256 MAC and AES encryption. These details are good, but as technology evolves, it probably makes sense to utilize the new technology in TCrypto at some point (upcoming SHA-3 standard). However this time is not just yet. An exception is if any of those cryptographic building blocks turns out to contain consequential weaknesses.
 
 But for now, it seems simpler just to "hard code" using those cryptographic primitives (instead of including some sort of "protocol identifier" to identify which crypto primitives were used).
-
-More short term features planned are to provide a method that detects if data compression, using CompressPlugin(), makes sense. It is currently quite unpleasant to decide whether TCrypto should compress the data or not, because compressing short data makes the output actually longer (and wastes some CPU).
 
 Links
 -----
