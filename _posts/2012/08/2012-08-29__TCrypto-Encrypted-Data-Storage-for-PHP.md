@@ -201,9 +201,8 @@ $crypto = new TCrypto\CryptoHandler\McryptAes256Cbc();
 $plugins = new TCrypto\PluginContainer();
 
 // Attach an extra plugin (compress/uncompress).
-// NOTE: TCrypto will not run compression plugins if data encryption is being used.
-
-// This is because data compression may leak information about encrypted plain text. 
+// NOTE: TCrypto will not run compression plugins if data encryption is being used
+// (this is because data compression may leak information about encrypted plain text).
 $plugins->attachPlugin(new TCrypto\Plugin\CompressPlugin());
 
 // Specify some options.
