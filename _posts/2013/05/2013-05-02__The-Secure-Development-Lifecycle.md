@@ -140,7 +140,7 @@ information on these, check out the "Best Practices" chapter near the end of thi
 
 ##### Threat Modeling
 
-Threat modeling is the process by which you would through the parts of your application
+Threat modeling is the process by which you would go through the parts of your application
 and think about the threats that could effect the functionality. If you've never done
 this kind of thing before it can be a little daunting. There are, however, some frameworks
 out there to help guide you through the right kind of thinking.
