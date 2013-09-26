@@ -2,12 +2,12 @@
 layout: default
 author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
-title: API Authentication: HMAC with Public/Private Keys
+title: API Authentication: HMAC with Public/Private Hashes
 tags: api,authentication,publickey,privatekey,hmac
 summary: Implementing a public/private HMAC hashing layer to your API helps authenticate and validate the request.
 ---
 
-API Authentication: HMAC with Public/Private Keys
+API Authentication: HMAC with Public/Private Hahes
 --------------
 
 {{ byline }}
@@ -23,14 +23,14 @@ though, you can't really get that level of interaction. You need a way to be abl
 validate not only the user making the request but also the contents of the request
 itself.
 
-#### Public and Private Keys
+#### Public and Private Hashes
 
 In this first part of the series, we're going to look at a pretty simple method of
 validating both of these things - using the pairing of a public and private key
 along with [HMAC hashing](http://en.wikipedia.org/wiki/Hash-based_message_authentication_code)
-to perform the validation. Let's start with a look at these public and private keys, though.
+to perform the validation. Let's start with a look at these public and private hashes, though.
 
-I call them "keys" but in reality you probably want to use something that's a bit
+I call them "hashes" but in reality you probably want to use something that's a bit
 more difficult to figure out than just a user-defined set of strings (in fact, I'd
 **strongly** advise you not allow the user to have any input into the key creation).
 Since these values are only used for the hashing and validation of the content, they
@@ -99,7 +99,7 @@ complete picture of what's happening where. The example uses the [curl](http://p
 functionality that comes with most PHP installs, but you could always use a more
 low level [socket request](http://php.net/fsockopen) if you'd like.
 
-First up is the code for the client - it takes the public/private keys for the user,
+First up is the code for the client - it takes the public/private hashes for the user,
 makes the hash for the value in `$content` and adds that hash to the HTTP headers
 it sends for the request.
 
@@ -133,7 +133,7 @@ echo "RESULT\n======\n".print_r($result, true)."\n\n";
 If you take a quick glance further down the article, you'll see the server side code
 that uses Slim to handle the request. If the hashes match, it outputs "match" so
 our `$result` should contain that string. If it doesn't, something is up...check the values
-of the keys you're using and be sure your content is making it into the `hash_hmac` function
+of the hashes you're using and be sure your content is making it into the `hash_hmac` function
 call.
 
 If you're making a request to a RESTful API (as we are in this case) and you want to check and be
@@ -216,7 +216,7 @@ API. It doesn't require much processing overhead and doesn't rely too much on in
 with outside authentication mechanisms (like a [two-factor system](/tagged/twofactor) might).
 There is a challenge with using the system though - the key handling.
 
-Since the user (or client system) needs to know both their public and private keys, they
+Since the user (or client system) needs to know both their public and private hashes, they
 have to be stored somewhere that their system can access them. Usually this means hard-coding
 them into a configuration file, either inside the application or as a server configuration
 value somewhere. It's out of your control how they store it, so depending on their choices,
