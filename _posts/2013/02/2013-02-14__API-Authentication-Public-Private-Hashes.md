@@ -3,17 +3,17 @@ layout: default
 author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
 title: API Authentication: HMAC with Public/Private Hashes
-tags: api,authentication,publickey,privatekey,hmac
+tags: api,authentication,publichash,privatehash,hmac
 summary: Implementing a public/private HMAC hashing layer to your API helps authenticate and validate the request.
 ---
 
-API Authentication: HMAC with Public/Private Hahes
+API Authentication: HMAC with Public/Private Hashes
 --------------
 
 {{ byline }}
 
 > This is the first part of a series of posts on authentication methods you can
-> use with your APIs. This article will cover the use of public/private key pairings
+> use with your APIs. This article will cover the use of public/private hash pairings
 > to validate the request.
 
 Dealing with authentication with APIs is a bit different than how you handle authenticating
@@ -26,13 +26,13 @@ itself.
 #### Public and Private Hashes
 
 In this first part of the series, we're going to look at a pretty simple method of
-validating both of these things - using the pairing of a public and private key
+validating both of these things - using the pairing of a public and private hash
 along with [HMAC hashing](http://en.wikipedia.org/wiki/Hash-based_message_authentication_code)
 to perform the validation. Let's start with a look at these public and private hashes, though.
 
 I call them "hashes" but in reality you probably want to use something that's a bit
 more difficult to figure out than just a user-defined set of strings (in fact, I'd
-**strongly** advise you not allow the user to have any input into the key creation).
+**strongly** advise you not allow the user to have any input into the hash creation).
 Since these values are only used for the hashing and validation of the content, they
 don't necessarily have to be related to anything about the user. In some of the
 implementations I've seen they just generate a random value and make a hash out of
@@ -69,10 +69,10 @@ Now that we have some hashes generated for our users, lets take a look at HMAC h
 and what it's for. The idea behind HMAC (hash-based message authentication code)
 hashing is pretty simple:
 
-1. Using a "private key" only known to the user (and the system), they create a hash based on the contents of the request
-2. This "content hash" is sent along with another value (in our case, a "public key") to the server
-3. The server then takes the "public" hash and locates the user it matches and pulls their "private" key
-4. The software then uses this "private" key to hash the message sent and tries to match that against
+1. Using a "private hash" only known to the user (and the system), they create a hash based on the contents of the request
+2. This "content hash" is sent along with another value (in our case, a "public hash") to the server
+3. The server then takes the "public" hash and locates the user it matches and pulls their "private" hash
+4. The software then uses this "private" hash to hash the message sent and tries to match that against
     the "content hash" that was sent with the request
 
 There's two benefits of this that I've already hinted at - the first is that, by using
@@ -84,7 +84,7 @@ of possible message modification.
 
 PHP has a handy function to help you generate these HMAC hashes too - [hash_hmac](http://php.net/hash_hmac).
 It takes in three parameters: the hash algorithm to use (like `sha256`), the contents
-of the request and the "private" key to use to generate the hash. Signing requests
+of the request and the "private" hash to use to generate the hash. Signing requests
 like this can use just about any hash type you choose, it just needs to be the same
 on both sides. This makes this method language-independent as well - just because
 our examples are written in PHP, it doesn't mean you have to use it to make the request.
@@ -105,16 +105,16 @@ it sends for the request.
 
 `
 <?php
-$publicKey  = '3441df0babc2a2dda551d7cd39fb235bc4e09cd1e4556bf261bb49188f548348';
-$privateKey = 'e249c439ed7697df2a4b045d97d4b9b7e1854c3ff8dd668c779013653913572e';
+$publicHash = '3441df0babc2a2dda551d7cd39fb235bc4e09cd1e4556bf261bb49188f548348';
+$privateHash = 'e249c439ed7697df2a4b045d97d4b9b7e1854c3ff8dd668c779013653913572e';
 $content    = json_encode(array(
     'test' => 'content'
 ));
 
-$hash = hash_hmac('sha256', $content, $privateKey);
+$hash = hash_hmac('sha256', $content, $privateHash);
 
 $headers = array(
-    'X-Public: '.$publicKey,
+    'X-Public: '.$publicHash,
     'X-Hash: '.$hash
 );
 
@@ -177,10 +177,10 @@ This will pull the Slim's files into your `vendor/` directory, ready for use.
 Our client is sending over a few things to the server - the `X-Public` header we can
 use to locate the user (in this case, it'd be stored in a database related to the user),
 the `X-Hash` header that's the result of the client-side hashing with the private
-key and the actual content for the request (our `json` string).
+hash and the actual content for the request (our `json` string).
 
-In out example, we've hard-coded the `privateKey` value, but you'd want to find the user
-in your system and pull out the private key associated with them to use it in re-hashing
+In out example, we've hard-coded the `privateHash` value, but you'd want to find the user
+in your system and pull out the private hash associated with them to use it in re-hashing
 the content.
 
 `
@@ -194,10 +194,10 @@ $app->post('/', function() use ($app){
 
     $publicHash  = $request->headers('X-Public');
     $contentHash = $request->headers('X-Hash');
-    $privateKey  = 'e249c439ed7697df2a4b045d97d4b9b7e1854c3ff8dd668c779013653913572e';
+    $privateHash  = 'e249c439ed7697df2a4b045d97d4b9b7e1854c3ff8dd668c779013653913572e';
     $content     = $request->getBody();
 
-    $hash = hash_hmac('sha256', $content, $privateKey);
+    $hash = hash_hmac('sha256', $content, $privateHash);
 
     if ($hash == $contentHash){
         echo "match!\n";
@@ -214,7 +214,7 @@ the string `"match"` in the return from the curl request.
 HMAC is a pretty simple kind of authentication and message signing to implement in your
 API. It doesn't require much processing overhead and doesn't rely too much on interacting
 with outside authentication mechanisms (like a [two-factor system](/tagged/twofactor) might).
-There is a challenge with using the system though - the key handling.
+There is a challenge with using the system though - the hash handling.
 
 Since the user (or client system) needs to know both their public and private hashes, they
 have to be stored somewhere that their system can access them. Usually this means hard-coding
@@ -225,7 +225,7 @@ and if anyone can access them, that could leave you vulnerable.
 
 There's also another smaller issue that really just boils down to personal preference. Other
 authentication methods offer a bit easier interface for the end-user. It can be
-a bit more difficult using a key pair like this also because it means sending this information
+a bit more difficult using a hash pair like this also because it means sending this information
 out to the user instead of them using something they already have (like an OAuth account)
 to make the request...but that's a topic for another article.
 
