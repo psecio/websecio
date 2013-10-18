@@ -4,7 +4,7 @@ author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
 title: Two-Factor with a Wave - Using Clef
 tags: twofactor,clef,wave
-summary: The Clef service provides an interactive, @todo two-factor solution.
+summary: The Clef service provides an interactive, easy to implement two-factor solution.
 ---
 
 Two-Factor with a Wave - Using Clef
