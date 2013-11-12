@@ -229,3 +229,4 @@ Outside of these considerations, you can integrate it into your application howe
 - [Composer project](http://getcomposer.org)
 - [PHP manual on PDO](http://php.net/pdo)
 
+
