@@ -3,7 +3,7 @@ layout: default
 author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
 title: Access Control: A Primer
-tags: access,control
+tags: access,control,coreconcepts
 summary: Different kinds of acccess control
 ---
 
@@ -82,6 +82,28 @@ Even worse, what if the user has a set of permissions they need to be able to do
 So, if maintaining individual permissions on users and the resources they're trying to access isn't the answer, what's the next level we can try? With the introduction of *roles* (or groupings, really) we can simplify some of the permission management problems.
 
 ##### Role Based Access Control
+
+The basic concept of role based access control (RBAC) is pretty much stated in its name. By now I think you're familiar enough with the concepts of access control that you could probably work out how roles/groups are the next logical step in the process, but I want to be sure you understand some of the small things some people don't think of when it comes to implementing roles and their permissions.
+
+Lets start with the basic goal behind the RBAC structure - making permission managemnt easier either by: 
+
+- grouping permissions into sets and assigning those sets to users
+- grouping users and assigning that grouping to a permission
+- both
+
+It's easy to look at that definition and think that "role" and "group" are interchangeable. For a lot of the impmenetations out there, they probably will be. Most often, the "roles" that people think about in their applications relate directly to think like departments in their company. They think that "an HR employee" is a role so they set that up and apply permissions to it. Human Resources employees are then assigned this role and everything's happy. Unfortunately, there's two things that keep this from being a perfectly peaceful existence.
+
+First, you need to remember that "roles" are *not* "groups". Yes, I know what I've said, but stick with me here. When you're thinking about the roles your application should contain, don't think about organizational groups within your company. IT's an easy trap but it can lead to larger problems down the line. The key here is to think about the actions the users will be performing inside the system and not see them as the people behind the keyboards. For example, don't think "HR Representative" think "Personal Data Manager" that would be able to work with the personal data of other employees. By focusing the groupings on the functioanlity instead of on the pre-existing organizational structure, you'll save headaches down the line with permission interactions.
+
+Speaking of interactions, RBAC comes with another interesting dilema similar to something we saw earlier with the basic access control lists - permission interactions. With the regular ACLs, the problem was that the user may require a permission for accessing one resource but having it means they can reach something else they shouldn't. With RBACs, the problem has more to do with the permission groupings.
+
+The real problem is that it's hard to group permissions in sucha way that there will be as little interference as possible. For example, if both Group #1 and Group #2 have the "can access admin" permission in them but are based around two different kinds of roles, you may assign a user to Group #2 because they need a few of the permission in there and inadvertantly give them admin access too. So, how do you solve that in a RBAC world? Why, make another role with a slimmed down, more precise list of permissions...and we're back to the maintenance issues from ACLs.
+
+While it's a sort of "trial by fire" way to handle things, if you've opted for the RBAC methods for your app, I'd highly recommend taking a step back anywhere from six months to a year from when it was implemented and figure out which groups are being used, who's in them and what the variations are. It's very probable that you'll find groups not being used or ones that just have too wide of a permission set to be useful. These can all be trimmed down or consolidated to keep things from getting too far out of hand.
+
+So, if working directly with permissions - either in groups or individually - isn't the right answer to your needs, what's going to do it? Part of the problem with the ACL/RBAC methods is the tight coupling of the permissions, the users and the resources that are a part of the process. If you look at the permissions or group names, you can almost get a feel for what the application does (or at least the auth-protected parts of it). This is not only a maintenance problem, but could also potentially reveal things about the application you may not want an attacker to know about were they to get a hold of the permission/group information.
+
+How can we still provide the fine-grained control that permissioning offers to us and our app without having some of the downsides that come with it? Is there an option that can take things to the next level of abstraction, hopefully making it even easier to accurately and safely describe the security model for your application. Let's move to one of those possibilities - attribute-based controls.
 
 ##### Attribute-based Controls
 
