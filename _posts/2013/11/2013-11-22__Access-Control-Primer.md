@@ -46,6 +46,21 @@ If you're creating a shiny new application and you want to protect certain resou
 
 When either the application or the developer is in their infancy, it's easy for the idea to evaluate the unique identifier - in this case a username - as a valid option for checking access. Once the user has passed the authentication stage and we know who they are, the application then just checks against a single piece of information and compares it to a list of known good folks.
 
+`
+<?php
+// This is an example using HTTP Basic authentication
+
+$allowed = array('fprefect', 'adent', 'zbeeblebrox');
+$username = strtolower($_SERVER['HTTP_USER_AUTH']);
+
+if (!in_array($username, $allowed)) {
+    header('WWW-Authenticate: Basic realm="Heart of Gold"');
+    header('HTTP/1.0 401 Unauthorized');
+}
+
+?>
+`
+
 Super simple, right? Just add someone to the list and they have access. Unfortunately, this method is *severely* limiting. All you're basically gaining out of this is a "yes" or "no" for something hard-coded into your app. Think about how the check might happen and how it could make your life as a developer pretty tough:
 
 Say a user accesses an endpoint on your API - this single-check system would look at the list and give a yes or no answer based on its findings. Notice anything missing? If you're only validating off of a single list of usernames, you're only really able to check access for one thing. Once you start wanting to run the check for other resources, you have to add that concept into the validation resource. Now you have the concept of a many-to-many relationship in the data and you have to update the schema and checking method accordingly.
@@ -57,6 +72,42 @@ You can see how things could get out of hand quickly if you're not careful. So, 
 In the previous section, we focused on an identifier related to the subject accessing the resource to see if they were a part of the "special people" list. It doesn't implement any kind of properties around the resource or the user accessing it. All you can ever get back from it is a "yes, they're on the list" or "no, tell that deadbeat to get lost" kind of answer. The idea behind access control lists (ACL) is that you put a bit more context around the resource itself by adding in another abstract concept - permissions.
 
 In the unique identifier example, we essentially had a system with only one permission. It validated that the user had the "on the list" permission even though it wasn't a concept that existed in the system. Now, lets look at how an access control list system would help here.
+
+`
+<?php
+
+$userList = array(
+    array(
+        'username' => 'fprefect',
+        'permissions' => array(
+            'reporter', 'hhgtg', 'betelgeuse', 'hitchhiker'
+        )
+    ),
+    array(
+        'username' => 'adent',
+        'permissions' => array(
+            'earth', 'hitchhiker'
+        )
+    )
+);
+
+/* Either check against single permissions... */
+$user = $userList[1]; // Dent, Arthur Dent
+
+if (in_array('hitchhiker', $user['permissions'] === true) {
+    echo "That's one hoopy frood.";
+}
+
+/* ...or multiples */
+$permissions = $user['permissions'];
+$required = array('earth');
+
+if (count(array_intersect($permissions, $required)) > 0) {
+    echo "Knows where his towel is.";
+}
+
+?>
+`
 
 The basic idea behind an ACL is two-fold:
 
@@ -93,6 +144,63 @@ Lets start with the basic goal behind the RBAC structure - making permission man
 - grouping users and assigning that grouping to a permission
 - both
 
+Here's a simplified example:
+
+`
+<?php
+
+$userList = array(
+    array(
+        'username' => 'fprefect',
+        'roles' => array(
+            'Biped', 'Aliens'
+        )
+    ),
+    array(
+        'username' => 'adent',
+        'roles' => array(
+            'Biped', 'Earthlings'
+        )
+    )
+);
+
+$roles = array(
+    'Biped' => array(
+        'permission 1', 'permission 2'
+    ),
+    'Earthlings' => array(
+        'permission 2', 'permission 3'
+    )
+);
+
+$user = $userList[0];
+
+/**
+ * To check if they have a permission, it's a little more complicated.
+ * This only checks if they *have* the role with the permission...lots more
+ * complicated logic could be here
+ *
+ * @param  array $user User record
+ * @param  string $find Permission to find
+ * @return boolean Pass/fail status
+ */
+function checkAccess($user, $find) {
+    foreach ($user['roles'] as $role) {
+        if (in_array($find, $user['roles'])) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/* Calling our check */
+if (checkAccess($user, 'permission 1') === true) {
+    echo "Don't Panic.";
+}
+
+?>
+`
+
 It's easy to look at that definition and think that "role" and "group" are interchangeable. For a lot of the implementations out there, they probably will be. Most often, the "roles" that people think about in their applications relate directly to think like departments in their company. They think that "an HR employee" is a role so they set that up and apply permissions to it. Human Resources employees are then assigned this role and everything's happy. Unfortunately, there's two things that keep this from being a perfectly peaceful existence.
 
 First, you need to remember that "roles" are *not* "groups". Yes, I know what I've said, but stick with me here. When you're thinking about the roles your application should contain, don't think about organizational groups within your company. IT's an easy trap but it can lead to larger problems down the line. The key here is to think about the actions the users will be performing inside the system and not see them as the people behind the keyboards. For example, don't think "HR Representative" think "Personal Data Manager" that would be able to work with the personal data of other employees. By focusing the groupings on the functionality instead of on the pre-existing organizational structure, you'll save headaches down the line with permission interactions.
@@ -125,6 +233,8 @@ You get the idea - there's functionality in the spec that lets you customize the
 
 More power? Check. More complexity? You bet. This is about the point where you start getting more into the flexibility vs maintainability discussion. As you can imagine, keeping roles and permissions up to date looks like a walk in the park compared to hashing through more complex policies and attribute matches. Thankfully, there are tools out there that can help make the management a bit simpler, but it's still a complex system that requires complex solutions - there's no getting around it.
 
+> As the code required to provide an example for this kind of system is pretty complex (and could be a tutorial in itself), I'm recommending that you take a look at [this library](https://github.com/enygma/xacmlphp) I've created instead. It gives you an idea of how policies with matches are created and how the attributes for the four major players (Subject, Resource, Action and Environment) play together in the evaluation.
+
 #### Signing Off
 
 Hopefully this has given you a good idea of some of the concerns to think about when considering the authentication handling of your application. The options provided here aren't the only ones out there either. Plus, there's lots of ways you can customize these solutions to fit the needs of your applications. And whose to say you should only use one of them...maybe you want to use an attribute-matching solution for the endpoint auth and a more RBAC approach when it comes to the data handling.
@@ -137,4 +247,5 @@ Much like anything else around security and secure application development, the 
 - [NIST on RBAC](http://csrc.nist.gov/groups/SNS/rbac/)
 - [XACML from OASIS](https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=xacml)
 - [Fail Fast Securely](/2012/10/22/Fail-Fast-Securely.html)
+- [XACML PHP Library](https://github.com/enygma/xacmlphp)
 
