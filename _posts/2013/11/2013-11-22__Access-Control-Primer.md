@@ -10,6 +10,8 @@ summary: Good access control systems (and its management) are key to an applicat
 Core Concepts: Access Control (A Primer)
 --------------
 
+{{byline}}
+
 Most developers these days can't go for very long in their careers without bumping into one of the most common (yet difficult to solve) problems in multi-user applications - user auth. Unless what you're building either has no need for access control or plans to always be public, you'll need to know a bit about the topic. I'm going to try to introduce not only some of the basics concepts behind user auth, but also some of the possible solutions you can use, depending on your needs.
 
 #### Authentication & Authorization
