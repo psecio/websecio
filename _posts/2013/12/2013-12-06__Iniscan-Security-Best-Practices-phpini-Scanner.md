@@ -12,7 +12,7 @@ Iniscan - A Security Best Practices php.ini Scanner
 
 {{byline}}
 
-A while back I was looking at writing an article for this site about some of the security-related best practices when it came to working with your `php.ini` settings file. For those that don't know (and if you've spent any time with PHP at all, you should know) the `php.ini` file is the "master settings" file for your PHP installation. It's where the PHP interpreter (both on the web and command line side) for how to set itself up and what to turn on and off.
+A while back I wrote an article for this site about some of the security-related best practices when it came to working with your `php.ini` settings file. For those that don't know (and if you've spent any time with PHP at all, you should know) the `php.ini` file is the "master settings" file for your PHP installation. It's where the PHP interpreter (both on the web and command line side)looks for how to set itself up and what to turn on and off.
 
 Since it's a global configuration file there's lots of different kinds of settings that can be included like:
 
@@ -24,9 +24,13 @@ Since it's a global configuration file there's lots of different kinds of settin
 
 ...and more. It's also what lets you load in external extensions and configure settings for more specific areas like session handling, regular expressions, mail server configuration and various database extensions. You can pretty easily see the importance of this file, and having the wrong settings for the options inside could leave some pretty big gaps in the security of your application.
 
-Don't get me wrong, there's lots of things you can do at the application level that can help increase the security of your application - things that can't be done with configuration settings. When you talk about `php.ini` security, though, you're looking at something a bit more fundamental. There's a lot of places even in the default configuration file where you could be leaving yourself open and not even knowing it. There's lots of articles out there that make some good suggestions about what settings to disable or reasonable levels for other options, but there didn't seem to be one place that had both up-to-date information and most of it gathered in one place.
+> One thing to point out here - there's an option you can compile into the PHP installation (`with-config-file-scan-dir`) that points at another directory and loads all of the `*.ini` files it files there looking for PHP settings. It does this after the main `php.ini`, so there's always the chance it could overwrite some of the main settings.
 
-As I mentioned, I was gathering up all of the `php.ini`-related security information I could find for an article, but decided on a different path. Instead of just writing an article, I decided to make something more useful to the average user that would apply the lessons I'd been learning about secure PHP configuration. So, I created the [Iniscan](https://github.com/psecio/iniscan) tool - a command line utility you can run against your `php.ini` file and have it advise you about some of the best practices when it comes to securing your application on this foundational level.
+Don't get me wrong, there's lots of things you can do at the application code level that can help increase the security of your application - things that can't be done easily with configuration settings. When you talk about `php.ini` security, though, you're looking at something a bit more fundamental. There's a lot of places, even in the default configuration file that PHP ships with, where you could be leaving yourself open to potential abuse and not even know it. There's lots of articles out there that make some good suggestions about what settings to disable and reasonable levels for other options, but there didn't seem to be one place that had both up-to-date information.
+
+> I have to give a shout-out to [Ed Finkler](http://twitter.com/funkatron) for breaking the ground on this in his original concept - [PHPSecInfo](phpsecinfo.com). His tool is a PHP utility you could drop into your web application and visually tell where the pain points where. The HTML is color-coded according to pass/fail status and gives a bit more information about the issue as well as recommendations for good setting values. Unfortunately, it hasn't been updated in a while, but it's still a useful tool. Just be careful if you use it - it can provide a *lot* of information disclosure to those accessing your site. It's *not* recommended for regular use in production, but could be useful during initial configuration and setup.
+
+As I mentioned, I gathered up all of the `php.ini`-related security information I could find for an article and decided to be a bit more practical about it too. Instead of just writing an article, I decided to make something more useful to the average user that would apply the lessons about secure PHP server-side configuration outside of any framework or application platform. So, I created the [Iniscan](https://github.com/psecio/iniscan) tool - a command line utility you can run against your `php.ini` file and have it advise you about some of the best practices when it comes to securing your application on this foundational level.
 
 #### Iniscan - an Overview
 
@@ -95,7 +99,7 @@ And of why your current `php.ini` settings are for the file being processed:
 
 `bin/iniscan show`
 
-#### A Brief look at `php.ini` security
+#### A Brief look at PHP.ini security
 
 I was going to try to go through each of the items in the rules list and talk about why they were being checked, but instead I'm going to break it up into a few sections and give an overview of some of the basic security issues that can come up because of bad settings. Some of this has already been mentioned [in another article](/2012/08/13/Stay-Safe-in-Your-Phpini.html) but bears repeating in a bit more summarized format.
 
@@ -126,7 +130,7 @@ Another is a bit more specific and was only really a problem on specific version
 
 #### And it's open source!
 
-One last reminder before wrapping this article up - the [Iniscan](https://github.com/psecio/iniscan) project is open source and hosted over on Github and is always open for contributions. It doesn't have to be code, either - there's always going to be things not thought of or specific to your configuration that might trip it up. If you come across those, [submit an issue](https://github.com/psecio/iniscan/issues) about it and it'll get worked.
+One last reminder before wrapping this article up - the [Iniscan](https://github.com/psecio/iniscan) project is open source and hosted over on Github and is always open for contributions. It doesn't have to be code, either - there's always going to be things not thought of or specific to your configuration that might trip it up. If you come across those, [submit an issue](https://github.com/psecio/iniscan/issues) about it and it'll get worked. The project has already gained some attention, both on Github and a good number of installs via Packagist, but it can always use input or pull requests to help make it even better.
 
 It's my hope that this tool will be a helpful way for the PHP community to help with server-side security in a simple but effective way. The project's always looking for good ideas and "what's next", so if you have some good suggestions or even just general feedback, [let me know](mailto:iniscan@phpdeveloper.org)!
 
