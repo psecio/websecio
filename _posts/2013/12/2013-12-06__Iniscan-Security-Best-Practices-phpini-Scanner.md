@@ -4,7 +4,7 @@ author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
 title: Iniscan - A Security Best Practices php.ini Scanner
 tags: phpini,scanner,iniscan,opensource
-summary: @todo
+summary: Securing your configuration is important - let this tool help
 ---
 
 Iniscan - A Security Best Practices php.ini Scanner
