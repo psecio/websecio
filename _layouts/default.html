@@ -23,19 +23,35 @@
         </div>
 
         <div class="container">
-        {{ content }}
+            <div class="row">
+                <div class="span3">
+                    <h3>Our Mission</h3>
+                    <p>
+                        <b>websec.io</b> is dedicated to educating developers about security with topics
+                        relating to general security fundamentals, emerging technologies and PHP-specific 
+                        information.
+                    </p>
+                    <p>
+                        If there's a topic you don't see here and would like to read about (or would like
+                        to write an article) 
+                        <a href="mailto:websec@phpdeveloper.org?subject=Writing%20for%20Websec.io">let us know</a>!
+                    </p>
+                </div>
+                <div class="span9">
+                    {{ content }}
 
-        {% if showComments %}
-        <br />
-        <div id="disqus_thread"></div>
-        <script type="text/javascript" src="/assets/js/disquis.js"></script>
-        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-        <br />
-        {% endif %}
-
-        <footer>
-                websec.io &copy; {{ copyright_year }}
-        </footer>
+                    {% if showComments %}
+                    <br />
+                    <div id="disqus_thread"></div>
+                    <script type="text/javascript" src="/assets/js/disquis.js"></script>
+                    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                    <br />
+                    {% endif %}
+                </div>
+                <footer>
+                        websec.io &copy; {{ copyright_year }}
+                </footer>
+            </div>
         </div>
         <!-- for tracking purposes, until server info is functional again -->
         <img src="http://talkingpixels.org/t.gif"/>

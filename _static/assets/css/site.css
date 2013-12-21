@@ -16,7 +16,7 @@ code {
     margin: 0px;
     padding: 0px;
 }
-h2 {
+h2,h3 {
     margin-bottom: 3px;
     font-family: 'Brawler', serif;
 }
