@@ -4,7 +4,7 @@ author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
 title: Input Filtering & Validation with Aura.Filter
 tags: validation,library,filter,aura,framework
-summary: @todo
+summary: The Aura.Filter component provides effective and easy to use data filtering & validation features.
 ---
 
 Input Filtering & Validation with Aura.Filter
@@ -12,11 +12,11 @@ Input Filtering & Validation with Aura.Filter
 
 {{ byline }}
 
-It's pretty obvious that one of the major security issues for web applications - in any language - is the effective filtering and validation of the data it's using from external sources. This could be coming from any number of places including database, outside APIs or, the worst of them all, your own users. Bad data could be just about anything. It can come in the form of badly foramtted text someone copy and pasted all the way out to something malucious from a would-be attacker. Regardless of where it comes from or the intent, all data filtering and validation should be handled in roughly the same way. As I've mentioned [in other posts](/2013/04/01/Effective-Validation-with-Respect.html), filtering should be based on whitelisting, not a blacklist - and ensuring that the data you're using is what's expcted and as "clean" as possible.
+It's pretty obvious that one of the major security issues for web applications - in any language - is the effective filtering and validation of the data it's using from external sources. This could be coming from any number of places including database, outside APIs or, the worst of them all, your own users. Bad data could be just about anything. It can come in the form of badly formatted text someone copy and pasted all the way out to something malicious from a would-be attacker. Regardless of where it comes from or the intent, all data filtering and validation should be handled in roughly the same way. As I've mentioned [in other posts](/2013/04/01/Effective-Validation-with-Respect.html), filtering should be based on whitelisting, not a blacklist - and ensuring that the data you're using is what's expected and as "clean" as possible.
 
 There's several PHP libraries out there that can help you solve this particular issue. The one I want to cover here is a library that's a part of a framework that's relatively new to the scene, the [Aura Framework](http://auraphp.com). This project, originally started by [Paul Jones](http://twitter.com/pmjones), has one main tenant:
 
-> The primary goal of Aura is to provide high-quality, well-tested, standards-compliant, decoupled libraries that can be used in any codebase. This means you can use as much or as little of the project as you like.
+> The primary goal of Aura is to provide high-quality, well-tested, standards-compliant, decoupled libraries that can be used in any code base. This means you can use as much or as little of the project as you like.
 
 Other frameworks out there have adopted the component/modular mentality into their structure, but the Aura framework was built from the ground up this way. It aims to have reusable components that have the least amount of dependencies possible and can be used independently without having to do too much work. Since we're talking about data validation and filtering, we're going to focus in on one particular package - the [Aura.Filter](http://auraphp.com/packages/Aura.Filter). This package provides both filtering and validation (despite the name) and makes it simpler to check the data.
 
@@ -162,8 +162,16 @@ if ($filter->values($user) !== true) {
 
 We combine the two methods - the `RuleCollection::FIX` and `RuleCllection::IS` on the string length to ensure that what we've been given is a ten digit number with no extra characters. Obviously if we were given bogus data or not enough of it, the validation would fail and we'd get an error message back. This is where the real power of a combined tool like Aura.Filter really starts to shine. You're not having to use two different libraries or one to validate and maybe something manual to filter. It's more of a "one stop" kind of solution.
 
+#### A word of warning
 
+One thing to remember in all of this - having a filtering and validation library at your disposal is a definite must for PHP-based applications as there's nothing built-in that handles it. This comes with a caveat, though. Remember that you should never let a package like this lull you into a false sense of safety. After all, software is written by humans and regardless of how many unit tests are in the suite, there's always assumptions made and edge cases that aren't caught.
+
+More validation is always better than less and checks should **always** be made on any input. A good general rule of thumb is to think about the [trust](/2013/08/27/Core-Concepts-Trust-Boundaries.html) of the resource and the data it'll be feeding you. For example, if the data is coming from your highly secured database not available to the outside world, the chances of compromised information is lower, so the data can be awarded a bit higher level of trust. Data coming in from something like an external API or even your own users should *never* be left unfiltered and unvalidated. Malicious or not, this kind of data source can provide some really bad data and, since it's not under your control, the best thing to do is handle it as tainted.
 
 #### Resources
 
-[Aura.Filter on Github](https://github.com/auraphp/Aura.Filter)
+- [Aura.Filter on Github](https://github.com/auraphp/Aura.Filter)
+- [Effective Validation with Respect](/2013/04/01/Effective-Validation-with-Respect.html)
+- [Aura Framework](http://auraphp.com)
+- [Stack Overflow on Filtering in PHP](http://stackoverflow.com/questions/129677/whats-the-best-method-for-sanitizing-user-input-with-php)
+- [PHP manual for filter_var](http://php.net/filter_var)
