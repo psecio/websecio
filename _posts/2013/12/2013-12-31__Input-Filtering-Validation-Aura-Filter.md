@@ -46,8 +46,8 @@ require_once 'vendor/autoload.php';
 
 $filter = require_once 'vendor/aura/filter/scripts/instance.php';
 
-$filter->addSoftRule('testing',$filter::IS,'alnum');
-$filter->addSoftRule('testing',$filter::IS,'strlenMin', 3);
+$filter->addSoftRule('testing', $filter::IS, 'alnum');
+$filter->addSoftRule('testing', $filter::IS, 'strlenMin', 3);
 
 $object = (object)array(
     'testing' => '#h'
@@ -77,7 +77,7 @@ Speaking of filtering, let's give a similar example to the one above, but filter
 require_once 'vendor/autoload.php';
 
 $filter = require_once 'vendor/aura/filter/scripts/instance.php';
-$filter->addSoftRule('testing',$filter::FIX,'alnum');
+$filter->addSoftRule('testing', $filter::FIX, 'alnum');
 
 $object = (object)array(
     'testing' => 'this 1234 is %$#@ a test'
@@ -132,6 +132,36 @@ if ($filter->values($object) !== true) {
 `
 
 Much like the first example, we set up a soft rule that does a `RuleCollection::IS` check (essentially a `true`/`false`) with the "closure" type. The last parameter is the closure itself. The closure is bound to an instance of a `Rule` class and the data isn't passed in during execution. Instead you need to use the `getValue` method to grab the value of the property. In our case the return value is hard-coded as `false` to make the check fail and return the message as an error. The call inside the closure to `$this->message_map` sets the customized error message for the rule. This way you can set messages that have a bit more meaning to the actual problem (as more complex checks usually mean more than one possible kind of error).
+
+#### Filtering versus Validating
+
+While validating the data coming in is a relatively easy task (doesn't match what we want? kick it back!) filtering is a bit more tricky prospect. Filtering the data is basically akin to guessing, which is really never a good idea when it comes to the security of your application. For the most assurance, you'd want to combine the functionality something like Aura.Filter offers to do both at once - filter *and* validate.
+
+For example, say we asked a user to give us a phone number, minus any dashes or other non-numeric characters (we're assuming a typical U.S. number with area code here for simplicity). In order to be sure we weren't given any extra data, we'd want to filter first then validate:
+
+`
+<?php
+require_once 'vendor/autoload.php';
+
+$filter = require_once 'vendor/aura/filter/scripts/instance.php';
+$filter->addSoftRule('phone', $filter::FIX, 'int');
+$filter->addHardRule('phone', $filter::IS, 'strlen', 10);
+
+$user = (object)array(
+    'phone' => $_POST['phone']
+);
+
+if ($filter->values($user) !== true) {
+    echo 'messages: '.print_r($filter->getMessages(), true);
+} else {
+    echo 'valid user!';
+}
+
+?>
+`
+
+We combine the two methods - the `RuleCollection::FIX` and `RuleCllection::IS` on the string length to ensure that what we've been given is a ten digit number with no extra characters. Obviously if we were given bogus data or not enough of it, the validation would fail and we'd get an error message back. This is where the real power of a combined tool like Aura.Filter really starts to shine. You're not having to use two different libraries or one to validate and maybe something manual to filter. It's more of a "one stop" kind of solution.
+
 
 
 #### Resources
