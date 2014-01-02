@@ -46,8 +46,8 @@ require_once 'vendor/autoload.php';
 
 $filter = require_once 'vendor/aura/filter/scripts/instance.php';
 
-$filter->addSoftRule('testing', $filter::IS, 'alnum');
 $filter->addSoftRule('testing', $filter::IS, 'strlenMin', 3);
+$filter->addHardRule('testing', $filter::IS, 'alnum');
 
 $object = (object)array(
     'testing' => '#h'
