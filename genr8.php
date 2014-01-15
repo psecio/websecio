@@ -143,8 +143,9 @@ $b->export($b->compile('_static/feed.md'), '_site/feed.xml');
 // build the tags-to-posts crossreference
 $b->export(str_replace(array('<p>','</p>'), '', $b->compile('_static/tagged.md')), '_site/tagged.txt');
 
-// manually copy the tagged.php
+// manually copy the tagged.php and favicon
 exec('cp _static/tagged.php _site/tagged.php');
+exec('cp _static/favicon.ico _site/favicon.ico');
 
 echo '['.date('m.d.Y H:i:s').'] Generation complete!'."\n";
 ?>
