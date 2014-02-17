@@ -71,18 +71,19 @@ Another replacement option is to shift the validation over to another existing f
 
 #### Update the Current Validation
 
-Finally, if all else fails and there's no other alternative, you're going to have to make a choice - leave the check how it is and run more secondary validations or break it and force users to update. It's not a popular option, but it can be for the best. Users can get pretty easily frustrated by having to update data that might not seem connected ("homepage is required now? but I just wanted to update my password!").
+Finally, if all else fails and there's no other alternative, you're going to have to make a choice - leave the check how it is and run more secondary validations or break it and force users to update. It's not a popular option, but it can be for the best. Users can get frustrated pretty quickly by having to update data that might not seem connected ("company URL is required now? but I just wanted to update my password!").
 
-In this kind of situation, you might want to consider a path taken by several validation engines out there, especially those attached to models. The object that contains the data will have a "dirty" flag attached to it. If any data in the set on the object is changed, that flag will be marked as `true` and the field(s) that had changes can be determined.
-
-@todo
+In this kind of situation, you might want to consider a path taken by several validation engines out there, especially those attached to models. The object that contains the data will have a "dirty" flag attached to it. If any data in the set on the object is changed, that flag will be marked as `true` and the field(s) that had changes can be determined. With these fields singled out, you can then only run the validation on those fields, preventing any strangeness that might come from validating the entire object.
 
 #### Storing Versions
 
-One thing that I've seen talked about in some posts and discussion threads is the concept of storing the validation version right along with the data. For example, if you had an older URL you previously validated, it would have a record that contained both the URL and the version number of the "validate URL" check that it passed.
+One thing that I've seen talked about in some posts and discussion threads is the concept of storing the validation version right along with the data. For example, if you had an older URL you previously validated, it would have a record that contained both the URL and the version number of the "validate URL" check that it passed. This adds in some serious complexity as it requires at least one more piece of meta-data to be stored per piece of data. Add to that the fact that you have to keep *all* of the previous versions of the validations around if you ever want to call them back up and revalidate.
 
-@todo
+If you already have this kind of system in place, make every effort you can to get users to update their information to the latest validation level. Trust me, you'll thank me for it someday.
 
+#### And finally...
+
+What's my personal preference? Honestly, I'm more in favor of the forced update method of validation. I'd *much* rather always have validate data in my system then have to guess. This may mean upsetting and possible confusing some users when they're presented with a "you must update" message on login, but it's well worth it in my opinion.
 
 #### Resources
 
