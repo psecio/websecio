@@ -149,7 +149,7 @@ Here's a brief bit of code showing how to update our example:
 `
 <?php
 $url = filter_var($_GET['url'], FILTER_VALIDATE_URL);
-if ($url === true) {
+if ($url !== false) {
     // valid URL, not local file - execute!
     $mySiteContents = file_get_contents($url);
     echo htmlspecialchars($mySiteContents);
