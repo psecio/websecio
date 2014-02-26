@@ -11,6 +11,13 @@ Preventing XXE in PHP
 
 {{ byline }}
 
+<div style="background-color:#EEEEEE;border:1px solid #CCCCCC;padding:5px;margin-bottom:15px;font-size:12px">
+	<b>PLEASE NOTE:</b> The automatic loading of XML entities was disabled by default in about PHP 5.3.23. 
+	As such, this kind of attack only applies if your PHP version is before that or you have manually enabled
+	the XML entitiy loading.
+</div>
+
+
 There's an injection attack that's been around for a while now that's slipped under
 the radar for a lot of web application developers. Unfortunately, it can be one that
 could cause some serious information disclosure (or exploits) if it's not taken care
