@@ -2,9 +2,9 @@
 layout: default
 author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
-title: Fun with Input Handling
-tags: input,validation,handling
-summary: ...
+title: Fun with Input Handling: Regex, Logs & Serializing
+tags: input,validation,handling,regex,logs,serialize
+summary: Validating input isn't just about values, it's about context too.
 ---
 
 Fun with Input Handling: Regex, Logs & Serializing
