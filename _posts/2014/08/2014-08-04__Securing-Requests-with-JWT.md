@@ -294,3 +294,4 @@ Hopefully I've given you some good background and ideas on what JWTs are and how
 
 - [JSON Web Token (JWT) IETF Documentation](http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html)
 - [Psecio JWT Implementation](https://github.com/psecio/jwt)
+
