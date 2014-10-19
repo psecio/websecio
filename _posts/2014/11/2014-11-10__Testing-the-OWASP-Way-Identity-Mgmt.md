@@ -1,0 +1,37 @@
+---
+layout: default
+author: Chris Cornutt
+email: ccornutt@phpdeveloper.org
+title: Testing the OWASP Way - Identity Management
+tags: owasp,testing,guide,part4,series
+summary:
+---
+
+Testing the OWASP Way - Identity Management
+--------------
+
+{{ byline }}
+
+##### III. Identity Management
+
+This next section includes a few test that center around the identity of your users and some of the common methods of handling them. Every application is going to handle their user authentication and authorization differently (there's just so many possible options out there) but there are a few things that are common to web applications at a higher level. The first of these is the concept of *roles*. Most simple applications will have at least two user role concepts: a normal user that can do things related to their account and an administrator that can work with features in the system that cross user accounts or manage the application itself. While there are some tactics for determining these things as an outsider, one of the more efficient things they recommend, as someone who knows the application inside and out, is to create a *permission matrix"
+
+In this matrix you outline the type of role the user has (ex user vs administrator), what the permission is, why the would need to have it (the objective) and any constraints that may need to be put on it. Simple permission logic - has or doesn't have - is pretty easy but when you start entering the world of [role-based access control](http://en.wikipedia.org/wiki/Role-based_access_control) things start getting complex pretty quickly. You start having to have conversations like "If User #1 has the 'view all' permission, do we want to limit them from seeing Administrator accounts in that list" or "Should an Administrator be able to change information about a locked user?". All of these decisions relate to more complex permissions and groupings. By laying out the possible options in a matrix like this, you can see patterns and wrap your head around what objectives need to be done rather than doling out one-off permissions each time there's a variance.
+
+Next up is something that's a bit more user facing: testing of the registration form. Just about any application that has users has some kind of registration option. Sure, there's some that just authenticate off of another source, but probably ninety percent of the time users and permissions will be an internal thing. This testing isn't so much about things like SQL injection or the allowance of XSS, though. It's more about ensuring that there's no extra information exposure on the messaging or that the rules enforced match what's expected by the business. You can have even more complexity here if users are able to request permissions to access other parts of the application. Then you have to rely more heavily on that matrix to ensure that there's no unfortunate side effects by granting one permission and having it cascading down and possibly negating out another one.
+
+Following the registration process is a look at the next step in the chain: ensuring that the actual process for creating the user is working as expected and that all required information is obtained. Some of this was taken care of in the previous step, but consider this aspect of it as well - can your application administrators create users too, outside of the normal registration process? If so, are they still required to fill in all of the required information any other user would have to submit? Remember, just because their administrators it doesn't mean they should get to work around common things like business rules and validation. Those things are fundamental to the application working correctly and the data it houses always being valid.
+
+In the next recommended test, the OWASP guide suggests avoiding situations where usernames could be guessable. This is pretty obvious when you think about it, but it's easy to forget when you're neck deep in the code. There's really two pieces to this kind of testing. The first is not making automatically generated usernames guessable. Some services will create a username for you as a part of the registration process or they might reuse another piece of data like your full name or email address. In this case, it's relatively easy to guess what a person's username might be. It's pretty common to see the first letter + last name combination, especially in business environment. This is usually set up to help keep standards across an organization but it also makes the username *very* easy to guess. The same kind of thing goes for email addresses. Remember, email addresses are public knowledge and should be treated as such. You're better off allowing the users to select their own usernames than trying to generate your own. Sure, it's a little bit harder to track the actual person down that's done bad things to your system, but it's better than the potential compromise of a large swath of accounts.
+
+The second point around the username enumeration is ensuring that things like password reset functionality or even the login process don't give away the existence of an account in the system. There's been several articles written up about the messaging that users receive from bad logins or resets that expose too much information, things like: "That user doesn't exist in our system" or "This user is inactive and cannot log in". Either of these messages can give a potential attacker additional information they might need. The first lets them know that the given username doesn't exist so they can cross those off their list. On the flip side, if they *don't* get this message, they know the account is valid and they can continue on their merry way. The second message talks more about the state of the user. This lets an attacker know that there are both active and inactive accounts in the system and what they are. They can also assume that there's a way somewhere for administrators to re-enable the user, enticing them even more to find and brute force their way into an admin account.
+
+Remember not to just think about web applications here - APIs are also vulnerable to the same kind of issues and potential leakage via error messaging. If you make a request to a `/user/login` endpoint and are quickly returned with an error code in the `400` range of HTTP responses (and the API is correctly RESTish) you'll know more about the user in question. If you get a `403 Forbiddenn` you know the user exists but you're not allowed to access that resource. If you get a `404 Not Found` chances are the user isn't in the system and you should keep trying.
+
+Be sure the messaging you're providing is informative enough to provide meaning to the user but also generic enough to not leak any kind of data that could be used against you. Some examples of potential messages might be:
+
+- "The credentials provided we not valid."
+- "If the matching account is found, an email will be sent with password reset instructions."
+- "There is a problem with your credentials, please contact an administrator for assistance."
+
+You also need to be sure that whatever policies your application enforces on the user-facing side (like the registration form) is used everywhere in the system. Any time you're working with usernames, be sure you're running validation on it, even better if it's run even when a user is viewed or otherwise output.
