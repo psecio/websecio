@@ -2,12 +2,12 @@
 layout: default
 author: Chris Cornutt
 email: ccornutt@phpdeveloper.org
-title: Testing the OWASP Way
+title: Testing the OWASP Way - Introduction
 tags: shellshock,php,bash,vulnerability
 summary:
 ---
 
-Testing the OWASP Way
+Testing the OWASP Way - Introduction
 --------------
 
 {{ byline }}
