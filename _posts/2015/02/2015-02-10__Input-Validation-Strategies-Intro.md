@@ -132,3 +132,10 @@ This is all well and good with data that's relatively easy to figure out. Much l
 
 #### Multi-Level Validation
 
+So far in this article I've talked about simple validation practices. I've mentioned checking input for one thing at a time, but I do want to point out something to keep in mind as your application grows. A lot of the time, the combination of small checks and failing fast will get you where you need to be in validation. However, there will come a time when those little checks aren't enough and you'll start needing something more complex. Usually this comes in the form of checking for things like uniqueness or that a record can be updated. These kinds of checks just aren't possible without some more complex interaction.
+
+There's not really a good way to illustrate this as it really depends on how you're application is set up and what you need to check. I wanted more to mention that, in the future, it's very likely this will come up. You need to incorporate a validation system into your application that will allow for these custom checks - maybe through a callback or by pointing at a class and method and returning a "yes" or "no" answer there.
+
+Validation is a complex creature, even if it does seem deceivingly simple at first glance. I've talked about some of the basics of validation in this article but stay tuned for more in the series covering validation on specific kinds of data and best practices to help keep your application safe and data clean.
+
+
