@@ -12,6 +12,8 @@ Input Filtering & Validation with Aura.Filter
 
 {{ byline }}
 
+> **Please note:** This article and the code it references are **out of date**. The `Aura.Filter` project has changed dramatically and is now in the 2.0 world.
+
 It's pretty obvious that one of the major security issues for web applications - in any language - is the effective filtering and validation of the data it's using from external sources. This could be coming from any number of places including database, outside APIs or, the worst of them all, your own users. Bad data could be just about anything. It can come in the form of badly formatted text someone copy and pasted all the way out to something malicious from a would-be attacker. Regardless of where it comes from or the intent, all data filtering and validation should be handled in roughly the same way. As I've mentioned [in other posts](/2013/04/01/Effective-Validation-with-Respect.html), filtering should be based on whitelisting, not a blacklist - and ensuring that the data you're using is what's expected and as "clean" as possible.
 
 There's several PHP libraries out there that can help you solve this particular issue. The one I want to cover here is a library that's a part of a framework that's relatively new to the scene, the [Aura Framework](http://auraphp.com). This project, originally started by [Paul Jones](http://twitter.com/pmjones), has one main tenant:
