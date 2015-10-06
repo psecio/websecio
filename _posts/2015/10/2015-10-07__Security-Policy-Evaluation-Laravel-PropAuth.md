@@ -12,12 +12,74 @@ Security Policy Evaluation in Laravel with PropAuth
 
 {{ byline }}
 
+When you think about authentication and authorization checks on users of your system, the first things that come to mind are usually the typical role-based access control types: groups, permissions, passwords, etc. Most RBAC systems out there hard-code these kinds of things and force you into a pattern of checks on these values to ensure user access for a resource or record. This can be somewhat constraining on a complex system where checks can get very complicated very quickly.
 
-Instllation:
+There's an alternative to this hard-coded RBAC handling though and it turns the whole system into something much more flexible while still retaining the same groups/permissions/username/etc checks that the typical role-based systems have defined. With property-based evaluation, you open up the checking to any property that the subject (user) has, not just the small set of RBAC checks.
+
+Here's a common scenario where the typical RBAC structure is used: check to see if User #1 is in "group1" and "group2" and has the permission "perm1". That's a pretty simple kind of check that could look something like (pseudo-code here):
+
+```
+if ($user->inGroup('group1') && $user->inGroup('group2') && $user->hasPermission('perm1')) { }
+```
+
+This is fine but it has two main problems:
+
+- As the evaluation gets more and more complex, the part inside the `if()` can become a tangled up mess and become quite confusing for developers to understand.
+- It's not reusable at all. Any place you want to put in the same checks you'd have to copy and paste the code in, making for another lovely maintenance nightmare when permissions need to be changed.
+
+While property-based authorization checks won't solve the reusability problem by themselves, introducing the concept of "policies" will. Policies can be thought of as reusable sets of checks that can be easily pulled and applied across the application, making things more [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself).
+
+### So where does PropAuth come in?
+
+The [PropAuth](https://github.com/psecio/propauth) library is designed with two goals in mind:
+
+- Making the creation of property-based checks (policies) easier to generate
+- Allowing for the easy creation and reuse of these policies simple to integrate
+
+The `PropAuth` engine provides a fluent interface for creating simple or complex policies and evaluating them against the current user. For example, if you just wanted to check and see if a user has a certain username, you could use:
+
+```php
+<?php
+$result = Enforcer::instance()->evaluate($user, Policy::instance()->hasUsername('ccornutt'));
+?>
+```
+
+This assumes that the user's "username" value is accessible either as a public property, through a `getUsername` method or a call to `getProperty('username')`. The value in `$result` will either be `true` or `false` depending on the evaluation results.
+
+That's a simple example, but things can get a lot more complex with chained checks to build a more robust policy:
+
+```php
+<?php
+$policy = Policy::instance()
+    ->hasUsername(['ccornutt', 'ccornutt1'], Policy::ANY)
+    ->hasPermissions(['perm1', 'perm2'], Policy::ALL)
+    ->notPermissions('perm3')
+    ->hasGroup(['group1', 'group2', 'group3']);
+
+$result = Enforcer::instance()->evaluate($user, $policy);
+?>
+```
+
+Here's what the above policy defines:
+
+- The username should match at least one of "ccornutt" or "ccornutt1"
+- The user should have both permissions "perm1" and "perm2"
+- The user should not have permission "perm3"
+- The user should have at least one group in "group1", "group2" or "group3"
+
+All of the evaluation of this policy against the user is internal to the library, reducing the need for the copy/paste-ing of complex `if` checks across the codebase. It also prevents complex evaluation with multiple "gates" (if checks) as the user trickles down through the code.
+
+Now that you've gotten a taste of the tool, lets look at a more full example: implementing it in a Laravel-based application as a provider. This allows for the definition of policies/policy set and easy evaluation inside of a controller.
+
+### Installation:
+
+Installing the library is easy with [Composer](http://getcomposer.org). Use this command to have it require it as a part of your application:
 
 ```
 composer.phar require psecio/propauth
 ```
+
+This will pull in a stable release of the library and do all the autoload magic that Composer does to make it available in the application.
 
 ### A Simple Example
 
@@ -48,12 +110,12 @@ $myPolicy->hasUsername('ccornutt')->hasPermissions('test1'); // also true
 ?>
 ```
 
-...explain each piece
+This code will look similar to the example above, it's just a bit more complete. Our sample user is a basic `stdClass` object with `username` and `permissions` properties publicly accessible. That's then injected into the `Enforcer` along with the simple policy examples, the first just checking the username and the second looking for the username + permission combination.
 
 
 ### Implementing in a Laravel Provider
 
-First we define the provider in our application to set up our policies. This can include simple checks with the "has" functions or more complex evaluation with the use of a closure:
+Now we'll move on to implementing this setup in a Laravel application. First we'll need to define the provider in our application to set up our policies. You can create this file in `app/providers/PolicyServiceProvider.php`. This example include a simple check with the "has" function and a more complex evaluation with the use of a closure:
 
 ```
 <?php
@@ -90,9 +152,17 @@ In the example above I'm defining two policies: `can-edit` and `can-delete`. The
 
 - The second policy is a bit more complex. The `can-delete` policy makes use of a closure for its evaluation
 
+#### Updating the configuration
+
+You'll also need to update your Laravel app's configuration to load in this new provider. Because of how the provider system works in Laravel, this provider will be loaded on every request so the policies will be available, even on console commands. To add the provider, update the `<file here>` and add this to the `$providers` array:
+
+```php
 
 ```
-// And now it in use in a simple controller
+
+#### Using the policy checks in a controller
+
+```
 <?php
 
 namespace App\Http\Controllers;
