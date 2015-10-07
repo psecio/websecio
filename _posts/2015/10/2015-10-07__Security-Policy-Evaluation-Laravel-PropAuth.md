@@ -71,7 +71,7 @@ All of the evaluation of this policy against the user is internal to the library
 
 Now that you've gotten a taste of the tool, lets look at a more full example: implementing it in a Laravel-based application as a provider. This allows for the definition of policies/policy set and easy evaluation inside of a controller.
 
-### Installation:
+### Installation
 
 Installing the library is easy with [Composer](http://getcomposer.org). Use this command to have it require it as a part of your application:
 
@@ -150,17 +150,42 @@ This provider sets up a group of policies inside of a singleton that's injected 
 
 In the example above I'm defining two policies: `can-edit` and `can-delete`. The first one just does a simple check to see if the subject (user) provided as a username of "ccornutt". This is the `can-edit` policy. When this policy is checked, as shown in the example below, it passes if the `username` property on the subject is "ccornutt". If not, the evaluation fails.
 
-- The second policy is a bit more complex. The `can-delete` policy makes use of a closure for its evaluation
-
-#### Updating the configuration
-
-You'll also need to update your Laravel app's configuration to load in this new provider. Because of how the provider system works in Laravel, this provider will be loaded on every request so the policies will be available, even on console commands. To add the provider, update the `<file here>` and add this to the `$providers` array:
-
-```php
+The second policy is a bit more complex. The `can-delete` policy makes use of a closure for its evaluation allowing for more custom logic than just the evaluation of simple properties. When closures are used as a policy, the first parameter (here it's `$subject`) is always the subject of the evaluation, usually the user in question. If you skip ahead a bit down to the example at the bottom of this article you'll also notice something else you can do that's handy - pass in a third option on the `allows` method that provides more details to the closure. For example:
 
 ```
+<?php
+// If our "allows" check is
+\App::make('policies')->allows('can-edit', Auth::user(), ['test', 'this']);
 
-#### Using the policy checks in a controller
+// Then the parameters passed into the closure
+function($subject, $string1, $string2) {
+    return false;
+}
+?>
+```
+
+In this example the value in `$string1` would be "test" and the value of `$string2` is "this". Each value defined in that third parameter on `allows` is passed in as an individual parameter. This Much like the pass/fail logic of the other checks in a normal policy, these closures should return a boolean indicating the result of the validation. Now, back to our example. In the `can-delete` closure above we've been given the `$subject` and `$post` values, objects in this case. It then checks to be sure that the subject's `username` value matches the post's `author` value and returns true if there's a match, passing the validation.
+
+#### Updating the Laravel Configuration
+
+You'll also need to update your Laravel app's configuration to load in this new provider. Because of how the provider system works in Laravel, this provider will be loaded on every request so the policies will be available, even on console commands. To add the provider, update the `config/app.php` and add it to the `$providers` array:
+
+```php
+<?php
+$providers = [
+    // Other Service Providers
+    App\Providers\PolicyServiceProvider::class
+];
+?>
+```
+
+Remember, this will load this provider every time you execute a script, command line or web request, so be sure and think about any performance concerns there.
+
+#### Using the Policy Checks in a Controller
+
+Finally we get to the use of the policy checks in a controller. Remember how we set up the singleton in the provider's `register` method to create the policies and return an `Enforcer` as "policies"? We can use the `\App` facade to grab this singleton and use the `Enforcer` it returns to check our current user. This is obviously post-login on the application (otherwise the user is null) but because the default Laravel user handling allows us to directly access properties on the object, PropAuth works happily with it.
+
+In this example we're using the policies defined above to evaluate the current user and current "Post" object. The `$post` here is just a made up `stdClass` instance but it gives you an idea of how things are handled.
 
 ```
 <?php
@@ -187,3 +212,30 @@ class TestController extends Controller
 
 ?>
 ```
+
+In both checks we fetch the `Enforcer` with the `\App::make` call and call the `allows` method with two parameters: the name of the policy to evaluate and the user instance to use as the subject. But wait, what's that third parameter on the second check? That's the "additional information" that you want to pass into the closure call. If you'll remember our closure structure:
+
+```
+<?php
+function($subject, $post) {
+    return ($subject->username == 'ccornutt' && $post->author == 'ccornutt');
+})
+?>
+```
+
+You'll notice that the `$subject` is passed in (as it always is) but the `$post` value is too. Behind the scenes PropAuth calls the closure with a [call_user_func_array](http://php/call_user_func_array) and these additional options are passed in as normal parameters. You can pass in any number of values through that third parameter and they'll happily be pushed into the callable in the same order they're injected.
+
+Now, back to our controller example. The `can-edit` check returns true because the policy was checking for a username value of "ccornutt" and the `can-delete` check also returns true because the author on the `$post` and the username on the subject match. Easy, right?
+
+### Summary
+
+So, to wrap things up - the [PropAuth](https://github.com/psecio/propauth) library provides you with a tool to define policies and easily reusable validation against properties on your subject (user) rather than being forced into a role-based access control model of permissions and groups. It's extremely flexible and, as I've shown here, can make for single-line checks in your code and consistency across the entire application.
+
+This last point is particularly key as it's specifically called out as a major issue in authentication and authorization systems. If your system is overly complex and you forget to update even just one auth* check in one spot in your application, it's possible for a would-be attacker to find that hole and exploit it to their benefit. Remember, complexity is the enemy of security - simpler is better and with the help of [PropAuth](https://github.com/psecio/propauth) simplicity is more in reach.
+
+#### Resources
+
+- [PropAuth on GitHub](https://github.com/psecio/propauth)
+- [OWASP on Broken Authentication and Session Management](https://www.owasp.org/index.php/Top_10_2013-A2-Broken_Authentication_and_Session_Management)
+
+
