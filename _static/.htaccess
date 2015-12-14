@@ -13,4 +13,6 @@ Options Includes FollowSymLinks MultiViews
     RewriteRule Preventing\-XEE '/2012/08/27/Preventing-XXE-in-PHP.html' [L]
     RewriteRule Public\-Private\-Key '/2013/02/14/API-Authentication-Public-Private-Hashes.html' [L]
     ErrorDocument 404 /notfound.html
+
+    php_value auto_prepend_file "/var/www/websecio/_site/prepend.php"
 </IfModule>
